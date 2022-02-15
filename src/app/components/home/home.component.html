@@ -1,0 +1,21 @@
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">LastName</th>
+        <th scope="col">BirthDate</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let Pedido of listadoPedidos">
+        <td>{{Pedido.id}}</td>
+
+        <td>{{Pedido.name}}</td>
+        
+        <td>{{Pedido.lastName}}</td>
+        
+        <td>{{Pedido.birthDate | date: "dd/MM/YYYY"}}</td>
+      </tr>
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+<div class="container">
+
+    <div id="carta" class="card text-center">
+      <div class="card-header">
+        <b>LOGIN</b>
+      </div>
+      <div class="card-body p-4">
+  
+<form [formGroup] = "formulario">
+
+
+  <label style="float: left;">Email</label>
+  <span style="color: crimson;"  *ngIf="(formulario.controls.email.touched) && this.formulario.controls.email.errors?.email">El email debe ser
+  válido</span>
+  <input class="form-control m-2" type="email" formControlName="email" placeholder="Ingrese su email" [(ngModel)] = "usuario.email">
+  
+  <label style="float: left;">Password</label>
+  <span style="color: crimson;" *ngIf="(formulario.controls.contrasena.touched)
+  &&this.formulario.controls.contrasena.errors?.required">La contraseña es
+  obligatoria</span>
+  <input class="form-control m-2" type="password" formControlName="contrasena" placeholder="Ingrese su password" [(ngModel)]="usuario.password">
+
+</form>
+
+  <button class="btn btn-primary btn-block m-2" (click)="Ingresar()">Ingresar</button>
+
+      </div>
+    </div>
+</div>

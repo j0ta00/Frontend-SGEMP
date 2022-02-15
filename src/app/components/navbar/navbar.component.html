@@ -1,0 +1,12 @@
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="https://icon-library.com/images/erp-icon/erp-icon-13.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+      ERP GRUPO 2
+      <button *ngIf="userLogged|async as user" class="btn btn-info btn-block m-2" width="30" height="30" (click)="logout()">Logout</button>
+    </a>
+    <a class="navbar-brand" href="#" *ngIf="userLogged|async as user">
+        <img src="https://w7.pngwing.com/pngs/647/460/png-transparent-computer-icons-open-person-family-icon-black-silhouette-black-white-people-thumbnail.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        {{user.email}}
+      </a>
+  </nav>
