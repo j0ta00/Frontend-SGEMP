@@ -1,0 +1,50 @@
+#cuadricula {
+    display: grid;
+    grid-template-columns:repeat(5, 70px); 
+    grid-template-rows:repeat(3, 70px);
+    justify-content:  space-around;
+    align-content: space-around;    
+    width:70%;
+    height: 350px;
+    margin:1em auto;
+    margin-top: 200px;
+  }
+  .item {
+    border-radius:10px;
+    font-size: 1em;
+    background-color: transparent;
+    background-color:var(--color);
+    color:white;
+    width: 100px;
+    height: 100px;
+    display:grid;
+  }
+  
+  img {
+    width:100%;
+    height:100%;
+  }
+  
+  
+  
+  
+  /*uninteresting stuff*/
+  body {
+    font-family: Verdana, Geneva, sans-serif;
+    background-color:#222;
+    color:#777;
+    font-size:14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  p{text-align:center;}
+  
+  #radios{
+    display:block;
+    width:70%;
+    min-width:350px;
+    margin:1em auto;
+    line-height: 2em;
+  }
+  #radios strong{display:inline-block; width:160px;font-weight:normal;}

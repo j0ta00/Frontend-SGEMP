@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     console.log(this.usuario.email);
     const { email, password} = this.usuario;
     this.authService.login(email, password).then(res => {
-      this._router.navigate(['/home'])
+      this._router.navigate(['/menu'])
       console.log("Se logeo "+this.usuario.email)
     })
   }

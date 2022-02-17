@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CanActivate, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { MenuComponent } from './components/menu/menu.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
@@ -30,10 +31,17 @@ const routes: Routes = [
   },
 
 
+
+  {
+    path: "menu",
+    component: MenuComponent,
+  },
+
   {
     path: "**",
     component: PageNotFoundComponent
   }
+
 
 ];
 
