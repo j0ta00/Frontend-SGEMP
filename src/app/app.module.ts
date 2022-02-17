@@ -16,10 +16,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { HttpClientModule } from '@angular/common/http'
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DetallesPedidoComponent } from './components/detalles-pedido/detalles-pedido.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -28,19 +27,18 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     LoginComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DetallesPedidoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
     NgbModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NoopAnimationsModule
   ],
   providers: [LoginComponent, AuthService,  AuthGuard],
   bootstrap: [AppComponent]
