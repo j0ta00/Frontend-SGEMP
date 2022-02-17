@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { FormBuilder, FormsModule } from '@angular/forms';
-
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -20,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListadoLineasPedidosComponent } from './components/listado-lineas-pedidos/listado-lineas-pedidos.component';
 
 
 @NgModule({
@@ -28,7 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     LoginComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ListadoLineasPedidosComponent
   ],
   imports: [
     BrowserModule,

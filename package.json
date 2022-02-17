@@ -24,10 +24,11 @@
     "@angular/router": "~13.2.0",
     "@firebase/auth": "^0.19.8",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^4.6.1",
     "firebase": "^9.6.6",
+    "react-bootstrap": "^2.1.2",
     "rxjs": "~7.5.0",
-    "tslib": "^2.3.0",
+    "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
