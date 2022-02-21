@@ -14,6 +14,6 @@ export class PedidosService {
   constructor(private http: HttpClient) {  }
 
   listadoPedidos(): Observable<Pedido[]> { return this.http.get<Pedido[]>(this.urlWebApi); }  
-
+  pedidoPorId(id: number): Observable<Pedido>{ return this.http.get<Pedido>(this.urlWebApi+"/"+id)}
   
 }
