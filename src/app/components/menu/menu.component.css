@@ -1,7 +1,7 @@
 #cuadricula {
     display: grid;
     grid-template-columns:repeat(5, 70px); 
-    grid-template-rows:repeat(3, 70px);
+    grid-template-rows:repeat(3, 70px); 
     justify-content:  space-around;
     align-content: space-around;    
     width:70%;

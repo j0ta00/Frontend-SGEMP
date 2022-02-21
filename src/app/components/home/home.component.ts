@@ -1,3 +1,4 @@
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from 'src/app/interfaces/pedido';
 import { PedidosService } from 'src/app/services/pedidos.service';
@@ -17,6 +18,10 @@ export class HomeComponent implements OnInit {
 
     this.personaservice.listadoPedidos().subscribe(data => { this.listadoPedidos = data; }, error => { console.log("ERROR") })
 
+  }
+
+    mostrar(variable:String):void {
+    console.log(variable)
   }
 
 }
