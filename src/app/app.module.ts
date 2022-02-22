@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms';
 import { DetallesPedidoComponent } from './components/detalles-pedido/detalles-pedido.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { XomponenteComponent } from './components/xomponente/xomponente.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     LoginComponent,
     HomeComponent,
     PageNotFoundComponent,
-    DetallesPedidoComponent
+    DetallesPedidoComponent,
+    XomponenteComponent
   ],
   imports: [
     BrowserModule,

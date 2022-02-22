@@ -1,6 +1,6 @@
 export interface Pedido {
 
-    id: String;
+    id: number;
     name: String;
     lastName: String;
     birthDate: Date;

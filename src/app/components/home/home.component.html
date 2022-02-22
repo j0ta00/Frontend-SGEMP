@@ -16,6 +16,7 @@
         <td>{{Pedido.lastName}}</td>
         
         <td>{{Pedido.birthDate | date: "dd/MM/YYYY"}}</td>
+        <td><button class="btn btn-primary" [routerLink]="['/details', Pedido.id]">editar pedido</button></td>
       </tr>
     </tbody>
 </table>
