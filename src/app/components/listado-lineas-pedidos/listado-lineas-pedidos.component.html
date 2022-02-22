@@ -1,10 +1,10 @@
-<table class="table">
+<table class="table" >
     <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+      <tr *ngFor="let linea of listadoLineasPedidos">
+        <th scope="col">{{linea.cantidad}}</th>
+        <th scope="col">{{linea.idProducto}}</th>
+        <th scope="col">{{linea.idProducto}}</th>
+        <th scope="col">{{linea.precioUnitario}}</th>
       </tr>
     </thead>
     <tbody>

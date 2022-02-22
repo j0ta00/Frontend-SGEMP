@@ -9,12 +9,12 @@ import { LineaPedidos } from '../interfaces/linea-pedidos';
 export class LineasPedidosService {
 
 
-  urlWebApi = "https://apierpkiosko.azurewebsites.net/LineasPedidos";
+  urlWebApi = "https://apierpkiosko.azurewebsites.net/api/LineasPedido";
 
   constructor(private http: HttpClient){ 
-
+    
   }
-  listadoLineaPedidos(): Observable<LineaPedidos[]> {
-    return this.http.get<LineaPedidos[]>(this.urlWebApi)
+  listadoLineaPedidos(idPedido:Number): Observable<LineaPedidos[]> {
+    return this.http.get<LineaPedidos[]>(this.urlWebApi+"/"+idPedido)
   }
 }
