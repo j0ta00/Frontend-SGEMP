@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
+import { TableFilteringComponent } from './components/table-filtering/table-filtering.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,12 @@ const routes: Routes = [
   {
     path: "home",
     component: HomeComponent,
-    canActivate: [AuthGuard]
+
+  },
+
+  {
+    path: "tfilter",
+    component: TableFilteringComponent,
 
   },
 

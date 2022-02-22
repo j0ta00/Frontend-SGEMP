@@ -20,6 +20,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TableFilteringComponent } from './components/table-filtering/table-filtering.component';
+import { ListFilterPipe } from './components/table-filtering/listFilterPipe';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     LoginComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TableFilteringComponent,
+    ListFilterPipe
   ],
   imports: [
     BrowserModule,

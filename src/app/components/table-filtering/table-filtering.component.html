@@ -1,0 +1,22 @@
+<form>
+  <div class="mb-3 row">
+    <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+    <div class="col-xs-3 col-sm-auto">
+      <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
+    </div>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">id</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let Pedido of listadoPedidosOfrecido | async; index as i">
+    <!--<td><ngb-highlight [result]="Pedido.id" [term]="filter.value"></ngb-highlight></td>-->
+    <td>{{Pedido.id}}</td>
+  </tr>
+  </tbody>
+</table>

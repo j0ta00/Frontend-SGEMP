@@ -1,13 +1,11 @@
 export interface Pedido {
 
-    id: String;
-    name: String;
-    lastName: String;
-    birthDate: Date;
-    phoneNumber: Number;
-    address: String, 
-    image: String, 
-    iddepartamento: String
+    id: string;
+    fechaPedido: Date;
+    fechaRecepcion: Date;
+    idProveedor: string
+    importeTotal: Number;
+    esBorrado: Boolean, 
 
     
 }
