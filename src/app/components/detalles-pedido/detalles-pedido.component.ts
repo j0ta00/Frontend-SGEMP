@@ -8,33 +8,24 @@ import { ActivatedRoute, Route } from '@angular/router';
   styleUrls: ['./detalles-pedido.component.css']
 })
 export class DetallesPedidoComponent implements OnInit {
-  pedidoSeleccionadoId: number;
-  constructor(private pedidosService: PedidosService,private router: ActivatedRoute) { }
+  pedidoID:number;
+  pedidoSeleccionado: Pedido;
+  pedidos:Pedido[];
+  constructor(private pedidosService: PedidosService, private router: ActivatedRoute) { }
   ngOnInit(): void {
-    this.pedidoSeleccionadoId =Number(this.router.snapshot.paramMap.get('id'));
-    this.pedidosService.pedidoPorId(this.pedidoSeleccionadoId);
-    // this.pedidosService.pedidoPorId(1).subscribe({
-    //   next: (data: Pedido) => {
-    //     this.pedidoSeleccionado = data
-    //   },
-    //   error:()=>{
-    //     console.log("Error")
-    //   }
-    // })
-    // this.pedidoSeleccionado;
-    const guardarBtn = document.getElementById("btnGuardar");
-    guardarBtn?.addEventListener("click", this.guardarCambios);
-    const crearBtn = document.getElementById("btnCrear");
-    crearBtn?.addEventListener("click", this.guardarCambios);
-    const descartarBtn = document.getElementById("btnDiscard");
-    descartarBtn?.addEventListener("click", this.guardarCambios);
+    this.pedidoID=Number(this.router.snapshot.paramMap.get('id'));
+    // this.pedidosService.listadoPedidos().subscribe(data=>this.pedidoSeleccionado=data[0]);
+    this.pedidosService.pedidoPorId(this.pedidoID).subscribe(data=>this.pedidoSeleccionado=data);
   }
   guardarCambios(): void {
-    alert(this.pedidoSeleccionadoId);
-  }
-
-  descartarCambios(): void {
     alert("cambios descartados");
+  }
+  mostrarId():void{
+    var n= this.pedidoSeleccionado.id;
+    alert(this.pedidoSeleccionado.id);
+    alert("igual cagaste");
+  }
+  descartarCambios(): void {
   }
 
   crearPedido(): void {

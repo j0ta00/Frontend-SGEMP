@@ -1,13 +1,16 @@
 <div style="margin-top: 20px; width: auto;">
   <div class="row justify-content-left">
     <div class="col-1">
-      <button id="btnSave" type="Button" class="btn btn-primary" onclick="guardarCambios">Guardar</button>
+      <button id="btnSave" type="Button" class="btn btn-primary" (click)="guardarCambios()">Guardar</button>
     </div>
     <div class="col-1">
-      <button id="btnCreate" type="Button" class="btn btn-outline-primary" onclick="crearFactura">Crear</button>
+      <button id="btnCreate" type="Button" class="btn btn-outline-primary" (click)="crearPedido()">Crear</button>
     </div>
     <div class="col-1">
-      <button id="btnDiscard" type="Button" class="btn btn-outline-danger" onclick="descartarCambios">Descartar</button>
+      <button id="btnDiscard" type="Button" class="btn btn-outline-danger" (click)="mostrarId()">Descartar</button>
+    </div>
+    <div class="col-1">
+      <button id="btnID" type="Button" class="btn btn-outline-danger" (click)="mostrarId()">Id</button>
     </div>
   </div>
 </div>
