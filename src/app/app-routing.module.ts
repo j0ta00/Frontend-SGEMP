@@ -16,7 +16,6 @@ const routes: Routes = [
     component: LoginComponent
   },
 
-
   {
     pathMatch: 'full',
     path: "",
@@ -39,8 +38,7 @@ const routes: Routes = [
     path: "**",
     component: PageNotFoundComponent
   }
-  
-  
+    
 ];
 
 
