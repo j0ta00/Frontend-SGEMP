@@ -1,17 +1,36 @@
-<div class="container" style="width: 350px; margin-top: 20px;">
-    <div class="row align-items-start">
-        <div class="col">
-          <button id="btnSave" type="Button" class="btn btn-primary" onclick="guardarCambios">Guardar</button>
-        </div>
-        <div class="col">
-            <button id="btnCreate" type="Button" class="btn btn-outline-primary" onclick="crearFactura">Crear</button>
-        </div>
-        <div class="col">
-            <button id="btnDiscard" type="Button" class="btn btn-outline-danger" onclick="descartarCambios">Descartar</button>
-        </div>
-      </div>
+<div style="margin-top: 20px; width: auto;">
+  <div class="row justify-content-left">
+    <div class="col-1">
+      <button id="btnSave" type="Button" class="btn btn-primary" onclick="guardarCambios">Guardar</button>
+    </div>
+    <div class="col-1">
+      <button id="btnCreate" type="Button" class="btn btn-outline-primary" onclick="crearFactura">Crear</button>
+    </div>
+    <div class="col-1">
+      <button id="btnDiscard" type="Button" class="btn btn-outline-danger" onclick="descartarCambios">Descartar</button>
+    </div>
+  </div>
 </div>
-<div style="margin-top: 500x; margin-left: 50px;">
-  <label for="clientInput" class="active">Cliente</label>
-  <input type="search" class="form-control mdb-autocomplete" id="clienteInput">
+<div style="margin-top: 50px; margin-left: 20px;">
+  <div class="row">
+    <div class="col-sm-3">
+      <label for="clientInput" class="active">Cliente</label>
+      <input type="search" class="form-control mdb-autocomplete" id="clienteInput">
+    </div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-3">
+      <label for="fechaPedido" class="active">Fecha de pedido</label>
+      <input type="date" class="form-control mdb-autocomplete" id="fechaPedido">
+    </div>
+  </div>
+  <div class="row" style="margin-top: 10px;">
+    <div class="col-sm-3">
+      <label for="plazo" class="active">Plazos de pago</label>
+      <select class="form-control mdb-autocomplete" id="plazo">
+        <option>Ahora mismo</option>
+        <option>a las 12:37 del dia siguiente</option>
+        <option>En el proximo solsticio</option>
+      </select>
+    </div>
+  </div>
 </div>
