@@ -7,10 +7,7 @@
       <button id="btnCreate" type="Button" class="btn btn-outline-primary" (click)="crearPedido()">Crear</button>
     </div>
     <div class="col-1">
-      <button id="btnDiscard" type="Button" class="btn btn-outline-danger" (click)="mostrarId()">Descartar</button>
-    </div>
-    <div class="col-1">
-      <button id="btnID" type="Button" class="btn btn-outline-danger" (click)="mostrarId()">Id</button>
+      <button id="btnDiscard" type="Button" class="btn btn-outline-danger" (click)="descartarCambios()">Descartar</button>
     </div>
   </div>
 </div>
@@ -18,7 +15,7 @@
   <div class="row">
     <div class="col-sm-3">
       <label for="clientInput" class="active">Cliente</label>
-      <input type="search" class="form-control mdb-autocomplete" id="clienteInput">
+      <input type="search" placeholder="" class="form-control mdb-autocomplete" id="clienteInput">
     </div>
     <div class="col-sm-2"></div>
     <div class="col-sm-3">
