@@ -15,25 +15,18 @@
   <div class="row">
     <div class="col-sm-3">
       <label for="clientInput" class="active">Cliente</label>
-      <input type="search" placeholder="" class="form-control mdb-autocomplete" id="clienteInput">
+      <input type="search" placeholder="{{pedidoSeleccionado.idProveedor}}" class="form-control mdb-autocomplete" id="clienteInput">
     </div>
     <div class="col-sm-2"></div>
     <div class="col-sm-3">
       <label for="fechaPedido" class="active">Fecha de pedido</label>
-      <input type="date" class="form-control mdb-autocomplete" id="fechaPedido">
+      <input type="date" [ngModel] ="pedidoSeleccionado.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaPedido = $event" class="form-control mdb-autocomplete" id="fechaPedido">
     </div>
   </div>
   <div class="row" style="margin-top: 10px;">
     <div class="col-sm-3">
       <label for="plazo" class="active">Plazos de pago</label>
-      <select class="form-control mdb-autocomplete" id="plazo">
-        <option>Ahora mismo</option>
-        <option>a las 12:37 del dia siguiente</option>
-        <option>En el proximo solsticio</option>
-      </select>
+      <input type="date" [ngModel] ="pedidoSeleccionado.fechaRecepcion | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaRecepcion = $event" class="form-control mdb-autocomplete" id="plazo">
     </div>
-  </div>
-  <div>
-    {{pedidoSeleccionado.id}}
   </div>
 </div>
