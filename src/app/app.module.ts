@@ -22,8 +22,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { Routes } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MaterialModule } from 'src/app/modules/material.module'
 
 
+const routes: Routes = [
+  { path: 'home', component: HomeComponent},
+  { path: 'owner', loadChildren: () => import('./modules/owner.module').then(m => m.OwnerRoutingModule) }, 
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [
@@ -40,12 +49,15 @@ import { MatSortModule } from '@angular/material/sort';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     NgbModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ReactiveFormsModule,
     MDBBootstrapModule.forRoot(),
-    MatSortModule
+    MatSortModule,
+    MatTableModule,
+    MaterialModule
   ],
   providers: [LoginComponent, AuthService,  AuthGuard],
   bootstrap: [AppComponent]

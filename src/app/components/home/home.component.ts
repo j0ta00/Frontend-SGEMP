@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Sort } from '@angular/material/sort';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Pedido } from 'src/app/interfaces/pedido';
 import { PedidosService } from 'src/app/services/pedidos.service';
 
@@ -10,54 +11,28 @@ import { PedidosService } from 'src/app/services/pedidos.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
-  listadoPedidos:Pedido[];
-  sortedData: Pedido[];
+  @ViewChild(MatSort) sort: MatSort;
+  public displayedColumns = ['id', 'fechaPedido', 'idProveedor', 'importeTotal', 'details', 'update', 'delete'];
+  public dataSource = new MatTableDataSource<Pedido>();
+
 
   constructor(private personaservice: PedidosService) { 
   }
-
   ngOnInit(): void {
-    this.personaservice.listadoPedidos().subscribe(data => { this.listadoPedidos = data as Pedido[]})
-
-    for (let i = 1; i <= this.listadoPedidos.length; i++) {
-      this.listadoPedidos.push({ id: this.listadoPedidos[i].id, fechaPedido: this.listadoPedidos[i].fechaPedido, fechaRecepcion: this.listadoPedidos[i].fechaRecepcion, idProveedor: this.listadoPedidos[i].idProveedor, importeTotal: this.listadoPedidos[i].importeTotal, esBorrado: this.listadoPedidos[i].esBorrado });
-    }
-
-
-    this.sortedData = this.listadoPedidos.slice();
-    
+    this.personaservice.listadoPedidos().subscribe(data => { this.dataSource.data = data as Pedido[]})
   }
 
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
+  public redirectToDetails = (id: string) => {}
+  public redirectToUpdate = (id: string) => {}
+  public redirectToDelete = (id: string) => {}
   
-
-
-  sortData(sort: Sort) {
-    const data = this.listadoPedidos.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
-    }
-
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'id':
-          return compare(a.id, b.id, isAsc);
-        case 'fechaPedido':
-          return compare(a.fechaPedido, b.fechaPedido, isAsc);
-        case 'idProveedor':
-          return compare(a.idProveedor, b.idProveedor, isAsc);
-        case 'importeTotal':
-          return compare(a.importeTotal, b.importeTotal, isAsc);
-        default:
-          return 0;
-      }
-    });
+  public doFilter = (value: string) => {
+      this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
-}
-
-function compare(a: Number | String | Date, b: Number | String | Date, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
