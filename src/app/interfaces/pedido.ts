@@ -6,6 +6,4 @@ export interface Pedido {
     idProveedor: number, 
     importeTotal: number, 
     esBorrado: boolean
-
-    
 }

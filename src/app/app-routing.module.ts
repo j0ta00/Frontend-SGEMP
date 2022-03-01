@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { CanActivate, RouterModule, Routes } from '@angular/router';
+import { CrearPedidoComponent } from './components/crear-pedido/crear-pedido.component';
 import { DetallesPedidoComponent } from './components/detalles-pedido/detalles-pedido.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';

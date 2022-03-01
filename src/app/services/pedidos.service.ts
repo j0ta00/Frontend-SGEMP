@@ -14,12 +14,15 @@ export class PedidosService {
   constructor(private http: HttpClient) { }
 
   listadoPedidos(): Observable<Pedido[]> { return this.http.get<Pedido[]>(this.urlWebApi); }
-  pedidoPorId(id: number): Observable<Pedido> { 
-    var url=this.urlWebApi + "/" + id.toString();
-    var pedidoPorId=this.http.get<Pedido>(url).pipe();
-    return pedidoPorId }
-  //Esto va en otro service o es en este mismo?
+  pedidoPorId(id: number): Observable<Pedido> {
+    var url = this.urlWebApi + "/" + id.toString();
+    var pedidoPorId = this.http.get<Pedido>(url).pipe();
+    return pedidoPorId;
+  }
   insertPedido(pedido: Pedido): void {
     this.http.post<Pedido>(this.urlWebApi, pedido);
+  }
+  updatePedido(pedido: Pedido){
+    this.http.put<Pedido>(this.urlWebApi, pedido);//TODO PUT EN LA API
   }
 }

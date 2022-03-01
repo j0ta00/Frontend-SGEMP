@@ -20,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DetallesPedidoComponent } from './components/detalles-pedido/detalles-pedido.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { XomponenteComponent } from './components/xomponente/xomponente.component';
+import { CrearPedidoComponent } from './components/crear-pedido/crear-pedido.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { XomponenteComponent } from './components/xomponente/xomponente.componen
     HomeComponent,
     PageNotFoundComponent,
     DetallesPedidoComponent,
-    XomponenteComponent
+    XomponenteComponent,
+    CrearPedidoComponent
   ],
   imports: [
     BrowserModule,
