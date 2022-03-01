@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     NgbModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [LoginComponent, AuthService,  AuthGuard],
   bootstrap: [AppComponent]

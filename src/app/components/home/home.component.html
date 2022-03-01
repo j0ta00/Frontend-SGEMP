@@ -1,21 +1,17 @@
-<table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">FirstName</th>
-        <th scope="col">LastName</th>
-        <th scope="col">BirthDate</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let Pedido of listadoPedidos">
-        <td>{{Pedido.id}}</td>
-
-        <td>{{Pedido.name}}</td>
-        
-        <td>{{Pedido.lastName}}</td>
-        
-        <td>{{Pedido.birthDate | date: "dd/MM/YYYY"}}</td>
-      </tr>
-    </tbody>
+<table id="tableSortExample" mdbTable class="z-depth-1">
+  <thead>
+    <tr>
+      <th *ngFor="let head of headElements; let i = index" scope="col" [mdbTableSort]="listadoPedidos" [sortBy]="headElements[i]">{{head | titlecase}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let el of listadoPedidos; let i = index">
+      <th scope="row">{{el.id}}</th>
+      <td>{{el.id}}</td>
+      <td>{{el.fechaPedido}}</td>
+      <td>{{el.idProveedor}}</td>
+      <td>{{el.importeTotal}}</td>
+    </tr>
+  </tbody>
 </table>
