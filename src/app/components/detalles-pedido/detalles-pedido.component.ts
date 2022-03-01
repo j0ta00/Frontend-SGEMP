@@ -10,21 +10,36 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 export class DetallesPedidoComponent implements OnInit {
   pedidoID:number;
   pedidoSeleccionado: Pedido;
-  pedidos:Pedido[];
-  constructor(private pedidosService: PedidosService, private activatedRoute: ActivatedRoute, private router:Router) { }
+
+  constructor(private pedidosService: PedidosService, private activatedRoute: ActivatedRoute, private router:Router) {}
   ngOnInit(): void {
     this.pedidoID=Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.pedidosService.listadoPedidos().subscribe(data=>this.pedidoSeleccionado=data[0]);
-    // this.pedidosService.pedidoPorId(this.pedidoID).subscribe(data=>this.pedidoSeleccionado=data);
-    document.getElementById("clienteInput")?.setAttribute("placeholder", this.pedidoSeleccionado.name.toString());
+    this.cargarPedido();
+  }
+  ngAfterViewInit():void {
+    console.log(this.pedidoSeleccionado.id)
   }
   guardarCambios(): void {
+    alert(this.pedidoSeleccionado.id)
   }
   descartarCambios(): void {
-    this.router.navigateByUrl("/login");
+    this.router.navigateByUrl("/home");
   }
   crearPedido(): void {
     this.router.navigateByUrl("/create");
+  }
+  loadPedidosasync():void{
+
+  }
+  cargarPedido():void{
+    this.pedidosService.pedidoPorId(this.pedidoID).subscribe(data=>this.pedidoSeleccionado={
+      id:data.id,
+      fechaPedido:data.fechaPedido,
+      fechaRecepcion:data.fechaRecepcion,
+      importeTotal:data.importeTotal,
+      esBorrado:data.esBorrado,
+      idProveedor:data.idProveedor 
+    });
   }
 
 }

@@ -16,7 +16,8 @@ export class PedidosService {
   listadoPedidos(): Observable<Pedido[]> { return this.http.get<Pedido[]>(this.urlWebApi); }
   pedidoPorId(id: number): Observable<Pedido> { 
     var url=this.urlWebApi + "/" + id.toString();
-    return this.http.get<Pedido>(url) }
+    var pedidoPorId=this.http.get<Pedido>(url).pipe();
+    return pedidoPorId }
   //Esto va en otro service o es en este mismo?
   insertPedido(pedido: Pedido): void {
     this.http.post<Pedido>(this.urlWebApi, pedido);
