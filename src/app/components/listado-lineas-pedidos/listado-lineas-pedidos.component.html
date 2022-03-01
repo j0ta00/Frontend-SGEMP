@@ -1,3 +1,4 @@
+<button (click)="[cambiarVisibilidad()]">Hello</button>
 <table  class="table" >
     <thead class="thead-dark">
       <tr>
@@ -9,15 +10,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let linea of listadoLineasPedidos">
+      <tr *ngFor="let linea of listadoLineasPedidos;let i = index">
         <th scope="row">{{linea.idPedido}}</th>
         <td>{{linea.idProducto}}</td>
-        <td>{{linea.cantidad}}</td>
+        <td [hidden]="visibilityTd">{{linea.cantidad}}</td>
+        <td [hidden]="visibilityInputs"><input value={{linea.cantidad}} class="form-control mdb-autocomplete"></td>
         <td>{{linea.precioUnitario}}</td>
         <td>{{linea.subTotal}}</td>
-        <td><img src="assets/bin_image.png" width="30px" height="30px" [border]="linea"></td>
+        <button id="btnBorrado" (click)="borrarFila(i)"><img src="assets/bin_image.png" width="35px" height="35px"></button>
       </tr>
     </tbody>
+      <tr *ngFor="let linea of listadoLineasPedidosAnhiadidos;let i = index">
+        <th scope="row">{{linea.idPedido}}</th>
+        <td><input value={{linea.idProducto}} class="form-control mdb-autocomplete"></td>
+        <td><input value={{linea.cantidad}} class="form-control mdb-autocomplete"></td>
+        <td>{{linea.precioUnitario}}</td>
+        <td>{{linea.subTotal}}</td>
+      </tr>
+      <button id="btnAnhiadir"  (click)="anhiadirPedido()" class="btn btn-primary" ><img src="assets/icono_anhiadir.png" width="20px" height="20px"></button>
   </table>
+
+
   
  
