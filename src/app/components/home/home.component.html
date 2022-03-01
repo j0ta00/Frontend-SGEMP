@@ -1,17 +1,15 @@
-<table id="tableSortExample" mdbTable class="z-depth-1">
-  <thead>
-    <tr>
-      <th *ngFor="let head of headElements; let i = index" scope="col" [mdbTableSort]="listadoPedidos" [sortBy]="headElements[i]">{{head | titlecase}}
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let el of listadoPedidos; let i = index">
-      <th scope="row">{{el.id}}</th>
-      <td>{{el.id}}</td>
-      <td>{{el.fechaPedido}}</td>
-      <td>{{el.idProveedor}}</td>
-      <td>{{el.importeTotal}}</td>
-    </tr>
-  </tbody>
+<table matSort (matSortChange)="sortData($event)">
+  <tr>
+    <th mat-sort-header="id">ID</th>
+    <th mat-sort-header="fechaPedido">FechaPedido</th>
+    <th mat-sort-header="idProveedor">IdProveedor</th>
+    <th mat-sort-header="importeTotal">ImporteTotal</th>
+  </tr>
+
+  <tr *ngFor="let el of sortedData">
+    <td>{{el.id}}</td>
+    <td>{{el.fechaPedido}}</td>
+    <td>{{el.idProveedor}}</td>
+    <td>{{el.importeTotal}}</td>
+  </tr>
 </table>

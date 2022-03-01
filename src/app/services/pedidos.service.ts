@@ -9,11 +9,9 @@ import { Pedido } from '../interfaces/pedido';
 })
 export class PedidosService {
 
-  urlWebApi = "https://crudpersonasasp.azurewebsites.net/api/Persona";
+  urlWebApi = "https://apierpkiosko.azurewebsites.net/api/Pedidos";
 
   constructor(private http: HttpClient) {  }
 
   listadoPedidos(): Observable<Pedido[]> { return this.http.get<Pedido[]>(this.urlWebApi); }  
-
-  
 }
