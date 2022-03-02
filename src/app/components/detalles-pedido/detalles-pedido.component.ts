@@ -13,9 +13,9 @@ export class DetallesPedidoComponent implements OnInit {
   pedidoID: number;
   pedidoSeleccionado: Pedido;
   creandoPedido: boolean;
-  listadoProveedores:Proveedor[];
+  listadoProveedores: Proveedor[];
 
-  constructor(private pedidosService: PedidosService,private proveedoresService:ProveedorServiceService ,private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private pedidosService: PedidosService, private proveedoresService: ProveedorServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
   // ngOnChanges(changes:SimpleChange):void {
   //   if(typeof changes['Pedido']!=="undefined")
   //   var change=changes['pedidoSeleccionado'];
@@ -24,29 +24,35 @@ export class DetallesPedidoComponent implements OnInit {
   // }
   ngOnInit(): void {
     this.pedidoID = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.proveedoresService.listadoPedidos().subscribe(data=>this.listadoProveedores=data);
-    this.creandoPedido = this.pedidoID !== 0;
-    if (this.creandoPedido)
+    this.proveedoresService.listadoPedidos().subscribe(data => this.listadoProveedores = data);
+    this.creandoPedido = this.pedidoID == 0;
+    if (!this.creandoPedido)
       this.cargarPedido();
+    else
+      this.pedidoSeleccionado = {
+        id: 0,
+        fechaPedido: new Date(),
+        fechaRecepcion: new Date(),
+        importeTotal: 0,
+        esBorrado: false,
+        idProveedor: 1
+      }
   }
   guardarCambios(): void {
     if (this.creandoPedido)
-      this.pedidosService.insertPedido(this.pedidoSeleccionado);
-    else
-    {
+      this.pedidoSeleccionado;
+    // this.pedidosService.insertPedido(this.pedidoSeleccionado);
+    else {
       this.pedidoSeleccionado
     }
-      // this.pedidosService.updatePedido(this.pedidoSeleccionado);
+    // this.pedidosService.updatePedido(this.pedidoSeleccionado);
   }
   descartarCambios(): void {
     this.router.navigateByUrl("/home");
   }
   crearPedido(): void {
     this.router.navigateByUrl("/details/0");
-  }
-
-  insertarPedido():void{
-    this.pedidoSeleccionado.idProveedor;
+    // this.ngOnInit();
   }
 
   cargarPedido(): void {

@@ -1,7 +1,7 @@
 <div style="margin-top: 20px; width: auto;">
   <div class="row justify-content-left">
     <div class="col-1">
-      <button id="btnCreate" type="Button" class="btn btn-outline-primary" *ngIf="creandoPedido" (click)="crearPedido()">Crear</button>
+      <button id="btnCreate" type="Button" class="btn btn-outline-primary" *ngIf="!creandoPedido" (click)="crearPedido()">Crear</button>
     </div>
     <div class="col-1">
       <button id="btnSave" type="Button" class="btn btn-primary" (click)="guardarCambios()">Guardar</button>
@@ -16,10 +16,11 @@
     <div class="col-sm-3">
       <label for="inputProveedor" class="active">Proveedor</label>
       <select id="inputProveedor" [(ngModel)]="pedidoSeleccionado.idProveedor" class="form-control mdb-autocomplete">
-        <option *ngFor="let proveedor of listadoProveedores" [ngValue]="proveedor.id" selected="{{pedidoSeleccionado.idProveedor}}">{{proveedor.nombreContacto}}</option>
+        <option *ngFor="let proveedor of listadoProveedores" [ngValue]="proveedor.id">{{proveedor.nombreContacto}}</option>
       </select>
     </div>
-    <div class="col-sm-2"></div>
+    <div class="col-sm-2">
+    </div>
     <div class="col-sm-3">
       <label for="fechaPedido" class="active">Fecha de pedido</label>
       <input type="date" [ngModel] ="pedidoSeleccionado.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaPedido = $event" class="form-control mdb-autocomplete" id="fechaPedido">
