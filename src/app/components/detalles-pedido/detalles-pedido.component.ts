@@ -44,15 +44,15 @@ export class DetallesPedidoComponent implements OnInit {
     // this.pedidosService.insertPedido(this.pedidoSeleccionado);
     else {
       this.pedidoSeleccionado
+      // this.pedidosService.updatePedido(this.pedidoSeleccionado);
     }
-    // this.pedidosService.updatePedido(this.pedidoSeleccionado);
   }
   descartarCambios(): void {
     this.router.navigateByUrl("/home");
   }
   crearPedido(): void {
     this.router.navigateByUrl("/details/0");
-    // this.ngOnInit();
+    this.ngOnInit();
   }
 
   cargarPedido(): void {
