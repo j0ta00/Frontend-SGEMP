@@ -4,6 +4,7 @@ import { Pedido } from 'src/app/interfaces/pedido';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Proveedor } from 'src/app/interfaces/proveedor';
 import { ProveedorServiceService } from 'src/app/services/proveedor-service.service';
+import { PedidosResolver } from 'src/app/resolvers/pedidos.resolver';
 @Component({
   selector: 'app-detalles-pedido',
   templateUrl: './detalles-pedido.component.html',
@@ -15,7 +16,7 @@ export class DetallesPedidoComponent implements OnInit {
   creandoPedido: boolean;
   listadoProveedores:Proveedor[];
 
-  constructor(private pedidosService: PedidosService,private proveedoresService:ProveedorServiceService ,private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private resolver:PedidosResolver,private pedidosService: PedidosService,private proveedoresService:ProveedorServiceService ,private activatedRoute: ActivatedRoute, private router: Router) { }
   // ngOnChanges(changes:SimpleChange):void {
   //   if(typeof changes['Pedido']!=="undefined")
   //   var change=changes['pedidoSeleccionado'];
@@ -24,7 +25,7 @@ export class DetallesPedidoComponent implements OnInit {
   // }
   ngOnInit(): void {
     this.pedidoID = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.proveedoresService.listadoPedidos().subscribe(data=>this.listadoProveedores=data);
+    this.proveedoresService.listadoProveedores().subscribe(data=>this.listadoProveedores=data);
     this.creandoPedido = this.pedidoID !== 0;
     if (this.creandoPedido)
       this.cargarPedido();
@@ -49,14 +50,18 @@ export class DetallesPedidoComponent implements OnInit {
     this.pedidoSeleccionado.idProveedor;
   }
 
+  get():Pedido{
+    return this.activatedRoute.snapshot.data.preFetchData.Pedido
+  }
   cargarPedido(): void {
-    this.pedidosService.pedidoPorId(this.pedidoID).subscribe(data => this.pedidoSeleccionado = {
-      id: data.id,
-      fechaPedido: data.fechaPedido,
-      fechaRecepcion: data.fechaRecepcion,
-      importeTotal: data.importeTotal,
-      esBorrado: data.esBorrado,
-      idProveedor: data.idProveedor
-    });
+    // this.pedidosService.pedidoPorId(this.pedidoID).subscribe(data => this.pedidoSeleccionado = {
+    //   id: data.id,
+    //   fechaPedido: data.fechaPedido,
+    //   fechaRecepcion: data.fechaRecepcion,
+    //   importeTotal: data.importeTotal,
+    //   esBorrado: data.esBorrado,
+    //   idProveedor: data.idProveedor
+    // });
+    this.pedidoSeleccionado=this.get();
   }
 }
