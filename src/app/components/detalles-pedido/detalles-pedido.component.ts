@@ -26,7 +26,7 @@ export class DetallesPedidoComponent implements OnInit {
   ngOnInit(): void {
     this.pedidoID = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.proveedoresService.listadoProveedores().subscribe(data=>this.listadoProveedores=data);
-    this.creandoPedido = this.pedidoID !== 0;
+    this.creandoPedido = this.pedidoID != 0;
     if (this.creandoPedido)
       this.cargarPedido();
   }
