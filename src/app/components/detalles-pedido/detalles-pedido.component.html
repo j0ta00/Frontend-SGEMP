@@ -1,4 +1,4 @@
-<div style="margin-top: 20px; width: auto;">
+<div style="margin-top: 20px; width: auto;" [hidden]="!spinnerVisibility">
   <div class="row justify-content-left">
     <div class="col-1">
       <button id="btnCreate" type="Button" class="btn btn-outline-primary" *ngIf="!creandoPedido" (click)="crearPedido()">Crear</button>
@@ -32,4 +32,7 @@
       <input type="date" [ngModel] ="pedidoSeleccionado.fechaRecepcion | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaRecepcion = $event" class="form-control mdb-autocomplete" id="plazo">
     </div>
   </div>
+</div>
+<div class="spinner-border" style="width: 50px; height: 50px;" [hidden]="spinnerVisibility" role="status">
+  <span class="sr-only">Loading...</span>
 </div>

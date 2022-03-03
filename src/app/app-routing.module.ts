@@ -8,6 +8,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { XomponenteComponent } from './components/xomponente/xomponente.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
+import { PedidosResolver } from './resolvers/pedidos.resolver';
 
 
 const routes: Routes = [
@@ -33,6 +34,9 @@ const routes: Routes = [
     path:"details/:id",
     component: DetallesPedidoComponent,
     // canActivate: [AuthGuard]
+    resolve:{
+      pedido:PedidosResolver
+    }
   },
 
   {
@@ -44,7 +48,9 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    onSameUrlNavigation:'reload'}
+    )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

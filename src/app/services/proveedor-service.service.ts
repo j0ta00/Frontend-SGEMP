@@ -11,5 +11,5 @@ export class ProveedorServiceService {
   urlWebApi = "https://apierpkiosko.azurewebsites.net/api/proveedores";
   constructor(private http: HttpClient) { }
   
-  listadoPedidos(): Observable<Proveedor[]> { return this.http.get<Proveedor[]>(this.urlWebApi); }
+  listadoProveedores(): Observable<Proveedor[]> { return this.http.get<Proveedor[]>(this.urlWebApi); }
 }
