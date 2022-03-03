@@ -25,7 +25,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Routes } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MaterialModule } from 'src/app/modules/material.module'
+import { MaterialModule } from 'src/app/modules/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatPaginatorModule } from '@angular/material/paginator';
 
 
 const routes: Routes = [
@@ -57,7 +59,9 @@ const routes: Routes = [
     MDBBootstrapModule.forRoot(),
     MatSortModule,
     MatTableModule,
-    MaterialModule
+    MaterialModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule
   ],
   providers: [LoginComponent, AuthService,  AuthGuard],
   bootstrap: [AppComponent]

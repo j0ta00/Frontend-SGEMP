@@ -1,51 +1,59 @@
-<div fxLayout fxLayoutAlign="center center">
-  <mat-form-field fxFlex="40%">
-    <p>Filter: </p>
-    <input matInput type="text" (keyup)="doFilter($any($event).target.value)">
-  </mat-form-field>
-</div>
+<body>
+  <div id="filter">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($any($event).target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
 
-<table mat-table [dataSource]="dataSource" matSort>
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-  </ng-container>
-  <ng-container matColumnDef="fechaPedido">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Pedido </th>
-    <td mat-cell *matCellDef="let element"> {{element.fechaPedido | date}} </td>
-  </ng-container>
-  <ng-container matColumnDef="idProveedor">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Proveedor </th>
-    <td mat-cell *matCellDef="let element"> {{element.idProveedor}} </td>
-  </ng-container>
-  <ng-container matColumnDef="importeTotal">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe Total </th>
-    <td mat-cell *matCellDef="let element"> {{element.importeTotal}} </td>
-  </ng-container>
-  <ng-container matColumnDef="details">
-    <th mat-header-cell *matHeaderCellDef> Details </th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="primary" (click)="redirectToDetails(element.id)">
-          <mat-icon class="mat-18"></mat-icon>
-      </button>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="update">
-      <th mat-header-cell *matHeaderCellDef> Update </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
-            <mat-icon class="mat-18"></mat-icon>
-        </button>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef> Delete </th>
+  <mdb-card id="card">
+    <table mat-table [dataSource]="dataSource" matSort id="table">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaPedido">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Pedido </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaPedido | date}} </td>
+      </ng-container>
+      <ng-container matColumnDef="idProveedor">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Proveedor </th>
+        <td mat-cell *matCellDef="let element"> {{element.idProveedor}} </td>
+      </ng-container>
+      <ng-container matColumnDef="importeTotal">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe Total </th>
+        <td mat-cell *matCellDef="let element"> {{element.importeTotal}} </td>
+      </ng-container>
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef> Details </th>
         <td mat-cell *matCellDef="let element">
-          <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
-              <mat-icon class="mat-18">delete</mat-icon>
+          <button mat-icon-button color="primary" (click)="redirectToDetails(element.id)">
+              <mat-icon class="mat-18">reorder</mat-icon>
           </button>
         </td>
       </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+      <ng-container matColumnDef="update">
+          <th mat-header-cell *matHeaderCellDef> Update </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">
+                <mat-icon class="mat-18">system_update</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+                  <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [hidePageSize]="true" [pageSize]="5">
+    </mat-paginator>
+
+    <button mat-raised-button id="add" (click)="redirectToCreate()">Nuevo Pedido</button>
+  </mdb-card>
+</body>
