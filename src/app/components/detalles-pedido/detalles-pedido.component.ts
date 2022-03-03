@@ -23,11 +23,16 @@ export class DetallesPedidoComponent implements OnInit {
   //   this.cargarPedido();
   // }
   ngOnInit(): void {
+    this.cargarDatosVista();
+
+  }
+  cargarDatosVista(): void {
     this.pedidoID = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.proveedoresService.listadoPedidos().subscribe(data => this.listadoProveedores = data);
     this.creandoPedido = this.pedidoID == 0;
     if (!this.creandoPedido)
       this.cargarPedido();
+
     else
       this.pedidoSeleccionado = {
         id: 0,
@@ -36,7 +41,8 @@ export class DetallesPedidoComponent implements OnInit {
         importeTotal: 0,
         esBorrado: false,
         idProveedor: 1
-      }
+      };
+    console.log(this.pedidoSeleccionado);
   }
   guardarCambios(): void {
     if (this.creandoPedido)
@@ -52,7 +58,7 @@ export class DetallesPedidoComponent implements OnInit {
   }
   crearPedido(): void {
     this.router.navigateByUrl("/details/0");
-    this.ngOnInit();
+    this.cargarDatosVista
   }
 
   cargarPedido(): void {
