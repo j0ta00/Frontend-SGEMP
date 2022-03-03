@@ -1,6 +1,10 @@
+
 table{
     width: 50%;
     border-collapse: collapse; 
+}
+select{
+    margin-top: 12px;
 }
 
 #btnAnhiadir{

@@ -1,5 +1,5 @@
 <button (click)="[cambiarVisibilidad()]">Hello</button>
-<table  class="table" >
+<table  class="table"  >
     <thead class="thead-dark">
       <tr>
         <th scope="col">IdPedido</th>
@@ -20,16 +20,31 @@
         <button id="btnBorrado" (click)="borrarFila(i)"><img src="assets/bin_image.png" width="35px" height="35px"></button>
       </tr>
     </tbody>
-      <tr *ngFor="let linea of listadoLineasPedidosAnhiadidos;let i = index">
+      <tr *ngFor="let linea of listadoLineasPedidosAnhiadidos;let i=index">
         <th scope="row">{{linea.idPedido}}</th>
-        <td><input value={{linea.idProducto}} class="form-control mdb-autocomplete"></td>
+          <select class="form-control mdb-autocomplete">
+            <option *ngFor="let producto of listadoProductos;let i=index" (change)="cambiarProducto(producto.id)">{{producto.nombre}}</option>
+          </select>
         <td><input value={{linea.cantidad}} class="form-control mdb-autocomplete"></td>
         <td>{{linea.precioUnitario}}</td>
         <td>{{linea.subTotal}}</td>
       </tr>
       <button id="btnAnhiadir"  (click)="anhiadirPedido()" class="btn btn-primary" ><img src="assets/icono_anhiadir.png" width="20px" height="20px"></button>
-  </table>
-
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </table>
+  
 
   
  
