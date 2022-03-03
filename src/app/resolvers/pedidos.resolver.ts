@@ -4,7 +4,7 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 import { Pedido } from '../interfaces/pedido';
 import { PedidosService } from '../services/pedidos.service';
 
@@ -14,6 +14,6 @@ import { PedidosService } from '../services/pedidos.service';
 export class PedidosResolver implements Resolve<Pedido> {
   constructor(private pedidosService:PedidosService){}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Pedido> {
-    return this.pedidosService.pedidoPorId(Number(route.paramMap.get("id")))
+    return this.pedidosService.pedidoPorId(Number(route.paramMap.get("id"))).pipe(delay(1000))
   }
 }
