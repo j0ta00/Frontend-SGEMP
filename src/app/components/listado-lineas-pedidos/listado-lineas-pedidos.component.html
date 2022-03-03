@@ -1,23 +1,38 @@
 <table  class="table" >
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">IdPedido</th>
-        <th scope="col">IdProducto</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Precio Unitario</th>
-        <th scope="col">Subtotal</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let linea of listadoLineasPedidos">
-        <th scope="row">{{linea.idPedido}}</th>
-        <td>{{linea.idProducto}}</td>
-        <td>{{linea.cantidad}}</td>
-        <td>{{linea.precioUnitario}}</td>
-        <td>{{linea.subTotal}}</td>
-        <td><img src="assets/bin_image.png" width="30px" height="30px" [border]="linea"></td>
-      </tr>
-    </tbody>
-  </table>
-  
- 
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">IdPedido</th>
+      <th scope="col">IdProducto</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Precio Unitario</th>
+      <th scope="col">Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let linea of listadoLineasPedidos">
+      <th scope="row">{{linea.idPedido}}</th>
+      <td>{{linea.idProducto}}</td>
+      <td>{{linea.cantidad}}</td>
+      <td>{{linea.precioUnitario}}</td>
+      <td>{{linea.subTotal}}</td>
+      <td><img src="assets/bin_image.png" width="30px" height="30px" [border]="linea"></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <tbody>
+    <tr>
+      <td>Base Imponible</td>
+      <td>{{baseImponible}}</td>
+    </tr>
+    <tr>
+      <td>IVA 21%</td>
+      <td>{{iva}}</td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td>{{total}}</td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="click()">Pursa</button>
