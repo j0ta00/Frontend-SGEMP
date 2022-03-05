@@ -28,7 +28,7 @@
   </div>
   <div class="row" style="margin-top: 10px;">
     <div class="col-sm-3">
-      <label for="plazo" class="active">Plazos de pago</label>
+      <label for="plazo" class="active">Fecha de entrega</label>
       <input type="date" [ngModel] ="pedidoSeleccionado.fechaRecepcion | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaRecepcion = $event" class="form-control mdb-autocomplete" id="plazo">
     </div>
   </div>
