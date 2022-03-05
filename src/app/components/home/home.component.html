@@ -15,9 +15,9 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Pedido </th>
         <td mat-cell *matCellDef="let element"> {{element.fechaPedido | date}} </td>
       </ng-container>
-      <ng-container matColumnDef="idProveedor">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID Proveedor </th>
-        <td mat-cell *matCellDef="let element"> {{element.idProveedor}} </td>
+      <ng-container matColumnDef="nombreProveedor">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Proveedor </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombreProveedor}} </td>
       </ng-container>
       <ng-container matColumnDef="importeTotal">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe Total </th>

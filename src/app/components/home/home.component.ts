@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public displayedColumns = ['id', 'fechaPedido', 'idProveedor', 'importeTotal', 'details', 'update', 'delete'];
+  public displayedColumns = ['id', 'fechaPedido', 'nombreProveedor', 'importeTotal', 'details', 'update', 'delete'];
   public dataSource = new MatTableDataSource<Pedido>();
 
 
