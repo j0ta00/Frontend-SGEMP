@@ -1,13 +1,16 @@
 <div style="margin-top: 20px; width: auto;" [hidden]="!spinnerVisibility">
   <div class="row justify-content-left">
     <div class="col-1">
-      <button id="btnCreate" type="Button" class="btn btn-outline-primary" *ngIf="!creandoPedido" (click)="crearPedido()">Crear</button>
+      <button id="btnCreate" mat-flat-button color="primary" *ngIf="!creandoPedido" (click)="crearPedido()">Crear <mat-icon>add</mat-icon></button>
     </div>
     <div class="col-1">
-      <button id="btnSave" type="Button" class="btn btn-primary" (click)="guardarCambios()">Guardar</button>
+      <button id="btnSave" mat-flat-button color="accent" (click)="guardarCambios()">Guardar <mat-icon>save</mat-icon></button>
     </div>
     <div class="col-1">
-      <button id="btnDiscard" type="Button" class="btn btn-outline-danger" (click)="descartarCambios()">Descartar</button>
+      <button id="btnEdit" mat-flat-button color="accent" (click)="cambiarVisibilidad()">Editar <mat-icon>edit</mat-icon></button>
+    </div>
+    <div class="col-1">
+      <button id="btnDiscard" mat-flat-button color="warn" (click)="descartarCambios()">Descartar <mat-icon>undo</mat-icon></button>
     </div>
   </div>
 </div>
@@ -50,7 +53,7 @@
     </ng-container>
     <ng-container matColumnDef="Cantidad">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
-      <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+      <td mat-cell *matCellDef="let element" > <div [hidden]="visibilityTd" >{{element.cantidad}}</div> <input class="form-control mdb-autocomplete" [hidden]="!visibilityTd" type="number" [value]="element.cantidad"/> </td>
     </ng-container>
     <ng-container matColumnDef="PrecioUnitario">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Unitario </th>
@@ -82,9 +85,14 @@
         <option *ngFor="let producto of listadoProductos;" [value]="producto.id">{{producto.nombre}}</option>
       </select>
     </td>
-    <td class="col-lg-4" ><input type="number" id="selectAnhiadirProducto" #textInput value={{linea.cantidad}} class="form-control mdb-autocomplete"  (input)="cambiarCantidad(textInput.value,i)"></td>
+    <td class="col-lg-4" style="width:20%"><input type="number" id="selectAnhiadirProducto" #textInput value={{linea.cantidad}} class="form-control mdb-autocomplete"  (input)="cambiarCantidad(textInput.value,i)"></td>
     <td class="col-lg-4"  style="width:20%">{{linea.precioUnitario}}</td>
     <td class="col-lg-4"  style="width:20%">{{linea.subTotal}}</td>
+    <td >
+      <button mat-icon-button color="warn" (click)="borrarFila(i)">
+        <mat-icon class="mat-18">cancel</mat-icon>
+    </button>  
+    </td>
   </tr>
   <button id="buttonAdd" mat-icon-button color="primary" (click)="anhiadirPedido()">
     <mat-icon class="mat-18">add</mat-icon>

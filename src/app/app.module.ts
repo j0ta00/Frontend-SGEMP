@@ -32,6 +32,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
 
 
+
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'owner', loadChildren: () => import('./modules/owner.module').then(m => m.OwnerRoutingModule) }, 
@@ -61,6 +63,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatSortModule,
     MatTableModule,
+    MatFormFieldModule,
     MaterialModule,
     MatPaginatorModule,
     BrowserAnimationsModule,

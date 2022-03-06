@@ -1,7 +1,7 @@
 import { LineaPedidos } from 'src/app/interfaces/linea-pedidos'
 import { Producto } from 'src/app/interfaces/producto'
 import { LineasPedidosService } from 'src/app/services/lineas-pedidos.service';
-import { ProductosService} from 'src/app/services/productos.service';
+import { ProductosService } from 'src/app/services/productos.service';
 import { LineaPedidosConNombreProducto } from '../../interfaces/linea-pedidos-con-nombre-producto';
 import { Component, OnInit, Input, SimpleChange, ViewChild } from '@angular/core';
 import { PedidosService } from 'src/app/services/pedidos.service';
@@ -9,12 +9,15 @@ import { Pedido } from 'src/app/interfaces/pedido';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Proveedor } from 'src/app/interfaces/proveedor';
-import { ProveedorService} from 'src/app/services/proveedor.service';
+import { ProveedorService } from 'src/app/services/proveedor.service';
 import { PedidosResolver } from 'src/app/resolvers/pedidos.resolver';
 import { debounceTime, delay, Observable } from 'rxjs';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort,Sort} from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
+import { LineasPedidosTemporalService } from 'src/app/services/lineas-pedidos-temporal.service';
+import { Auth } from '@firebase/auth';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-listado-lineas-pedidos',
@@ -30,24 +33,22 @@ export class ListadoLineasPedidosComponent implements OnInit {
   listadoLineasPedidosAnhiadidos: LineaPedidos[];
   public nuevaLineaPedido: LineaPedidos;
   public visibilityTd: boolean;
-  public visibilityInputs: boolean;
   public anhiadiendoPedido: boolean;
   pedidoID: number;
-  spinnerVisibility:boolean;
+  spinnerVisibility: boolean;
   pedidoSeleccionado: Pedido;
   creandoPedido: boolean;
   listadoProveedores: Proveedor[];
-  productoSeleccionado:Producto | undefined;
-  public displayedColumns = ['idPedido', 'NombreProducto','Cantidad','PrecioUnitario','Subtotal','Borrar'];
+  productoSeleccionado: Producto | undefined;
+  public displayedColumns = ['idPedido', 'NombreProducto', 'Cantidad', 'PrecioUnitario', 'Subtotal', 'Borrar'];
   public dataSource = new MatTableDataSource<LineaPedidos>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   defaultRecords: any = 3;
 
-  constructor(private ProductosService: ProductosService,private LineasPedidosService: LineasPedidosService,private modalService: NgbModal,private resolver: PedidosResolver, private pedidosService: PedidosService, private proveedoresService: ProveedorService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private ProductosService: ProductosService, private authServe:AuthService ,private lineasPedidosService: LineasPedidosService, private lineasPedidosTmpService: LineasPedidosTemporalService, private modalService: NgbModal, private resolver: PedidosResolver, private pedidosService: PedidosService, private proveedoresService: ProveedorService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.anhiadiendoPedido = false
     this.visibilityTd = false;
-    this.visibilityInputs = true;
     this.baseImponible = 0;
     this.iva = 0;
     this.total = 0;
@@ -56,7 +57,6 @@ export class ListadoLineasPedidosComponent implements OnInit {
   public listadoLineaDePedidosConNombreDeProducto: LineaPedidosConNombreProducto[];
   public cambiarVisibilidad() {
     this.visibilityTd = true;
-    this.visibilityInputs = false;
   }
   public anhiadirPedido() {
     this.anhiadiendoPedido = true;
@@ -69,43 +69,47 @@ export class ListadoLineasPedidosComponent implements OnInit {
       precioUnitario: 0
     };
     this.listadoLineasPedidosAnhiadidos.push(this.nuevaLineaPedido);
-    this.cambiarProducto(new Option(this.listadoProductos[0].nombre,this.listadoProductos[0].id.toString()),(this.listadoLineasPedidosAnhiadidos.length-1))
+    this.cambiarProducto(new Option(this.listadoProductos[0].nombre, this.listadoProductos[0].id.toString()), (this.listadoLineasPedidosAnhiadidos.length - 1))
   }
-  open(content:any,i:Number) {
-    this.modalService.open(content, {ariaLabelledBy: 'delete-modal'}).result.then((result) => {
-      if(result=="Delete click"){
+  open(content: any, i: Number) {
+    this.modalService.open(content, { ariaLabelledBy: 'delete-modal' }).result.then((result) => {
+      if (result == "Delete click") {
         this.borrarFila(i)
       }
     });
   }
-  public borrarFila(fila: any):void{}
-  public cambiarProducto(option: any,indexListado:Number):void{
+  public borrarFila(fila: Number): void {
+    this.listadoLineasPedidosAnhiadidos = this.listadoLineasPedidosAnhiadidos.filter(obj => { return obj !== this.listadoLineasPedidosAnhiadidos[+fila] });
+  }
+
+  public cambiarProducto(option: any, indexListado: Number): void {
     const element = option as HTMLOptionElement;
-    this.productoSeleccionado=this.listadoProductos.find(producto=>producto.id==option.value);
-    if (this.productoSeleccionado !== undefined) { 
-    this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].precioUnitario=this.productoSeleccionado.precioUnitario.valueOf()
-    this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].subTotal=this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad.valueOf()*this.productoSeleccionado.precioUnitario.valueOf()
+    this.productoSeleccionado = this.listadoProductos.find(producto => producto.id == option.value);
+    if (this.productoSeleccionado !== undefined) {
+      this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].precioUnitario = this.productoSeleccionado.precioUnitario.valueOf()
+      this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].subTotal = this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad.valueOf() * this.productoSeleccionado.precioUnitario.valueOf()
     }
   }
 
-  public cambiarCantidad(cantidad:string,indexListado:Number){
-    if(cantidad.length>0){
-      this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad=Number.parseInt(cantidad).valueOf()
-    if(this.productoSeleccionado!=null && this.productoSeleccionado!=undefined){
-      this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].subTotal=this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad.valueOf()*this.productoSeleccionado.precioUnitario.valueOf()
+  public cambiarCantidad(cantidad: string, indexListado: Number) {
+    if (cantidad.length > 0) {
+      this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad = Number.parseInt(cantidad).valueOf()
+      if (this.productoSeleccionado != null && this.productoSeleccionado != undefined) {
+        this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].subTotal = this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad.valueOf() * this.productoSeleccionado.precioUnitario.valueOf()
+      }
+    } else {
+      this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad = 0
     }
-  }else{
-    this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad=0
-  }
   }
 
   guardarCambios(): void {
-    if (this.creandoPedido){
-      this.pedidoSeleccionado
-    // this.pedidosService.insertPedido(this.pedidoSeleccionado);
-    }else {
-      
-      
+    var userID="unchardeveintiochoaaaaaaaaaa";
+    // this.authServe.getUserLogged().subscribe(data=>{userId=data?.getIdToken})
+    this.listadoLineasPedidosAnhiadidos.forEach(item => { this.lineasPedidosTmpService.insertLineaPedidoTMP(item); });
+    if (this.creandoPedido) {
+      this.pedidosService.insertPedido(userID, this.pedidoSeleccionado.idProveedor);
+    } else {
+      this.listadoLineasPedidosAnhiadidos.forEach(item => { this.lineasPedidosTmpService.updateLineaPedidoTMP(item); });
     }
   }
   descartarCambios(): void {
@@ -126,7 +130,7 @@ export class ListadoLineasPedidosComponent implements OnInit {
   }
 
   cargarPedido(): void {
-    var resolverResult=this.get() as Observable<Pedido>;
+    var resolverResult = this.get() as Observable<Pedido>;
     resolverResult.subscribe(data => this.pedidoSeleccionado = {
       id: data.id,
       fechaPedido: data.fechaPedido,
@@ -138,32 +142,31 @@ export class ListadoLineasPedidosComponent implements OnInit {
     }
     );
   }
-  ngAfterViewInit(): void {  
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.cambiarDeProveedor(this.listadoProveedores[0].id); 
+    this.cambiarDeProveedor(this.listadoProveedores[0].id);
   }
 
-  public cambiarDeProveedor(idProveedor:Number):void{
+  public cambiarDeProveedor(idProveedor: Number): void {
     this.ProductosService.listadoProductosPorProveedor(idProveedor).pipe(debounceTime(500)).subscribe(data => {
       this.listadoProductos = data
-      this.cambiarProducto(new Option(data[0].nombre,data[0].id.toString()),(this.listadoLineasPedidosAnhiadidos.length-1));//Esto lo hacemos aquí ya que si lo hacíamos debajo por alguna razón que desconocemos 
+      this.cambiarProducto(new Option(data[0].nombre, data[0].id.toString()), (this.listadoLineasPedidosAnhiadidos.length - 1));//Esto lo hacemos aquí ya que si lo hacíamos debajo por alguna razón que desconocemos 
     });                                                                                                                       //la lista nos llegaba con datos erróneos.
 
   }
   ngOnInit(): void {
     this.pedidoID = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.spinnerVisibility=true;
-    this.LineasPedidosService.listadoLineaPedidos(this.pedidoID).subscribe(data => {
-      this.dataSource.data=data as LineaPedidos[];
-    });    
+    this.spinnerVisibility = true;
+    this.lineasPedidosService.listadoLineaPedidos(this.pedidoID).subscribe(data => {
+      this.dataSource.data = data as LineaPedidos[];
+    });
     this.proveedoresService.listadoProveedores().subscribe(data => this.listadoProveedores = data);
     this.creandoPedido = this.pedidoID == 0;
     this.cargarPedido();
-         
   }
-  
-  onPaginateChange(data:any) {
+
+  onPaginateChange(data: any) {
     this.listadoLineasPedidos = this.listadoLineasPedidos.slice(0, data.pageSize);
   }
   calcularBaseImponible(): Number {
@@ -175,11 +178,11 @@ export class ListadoLineasPedidosComponent implements OnInit {
   }
 
   calcularIva(): Number {
-    
+
     return Number(this.baseImponible) * 0.21;
   }
 
-  calcularTotal(): Number{
+  calcularTotal(): Number {
     return Number(this.baseImponible) + Number(this.iva);
   }
 

@@ -20,10 +20,7 @@ export class PedidosService {
     var pedidoPorId = this.http.get<Pedido>(url).pipe();
     return pedidoPorId;
   }
-  insertPedido(pedido: Pedido): void {
-    this.http.post<Pedido>(this.urlWebApi, pedido);
-  }
-  updatePedido(pedido: Pedido){
-    this.http.put<Pedido>(this.urlWebApi, pedido);//TODO PUT EN LA API
+  insertPedido(idUsuario: String, idProveedor:Number): void {
+    this.http.post<Pedido>(this.urlWebApi, {idUsuario: idUsuario, idProveedor:idProveedor});
   }
 }
