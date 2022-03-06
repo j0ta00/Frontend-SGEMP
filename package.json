@@ -11,7 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.2.0",
-    "@angular/cdk": "^13.2.2",
+    "@angular/cdk": "^13.2.5",
     "@angular/common": "~13.2.0",
     "@angular/compiler": "~13.2.0",
     "@angular/core": "~13.2.0",
@@ -24,6 +24,7 @@
     "@angular/router": "~13.2.0",
     "@firebase/auth": "^0.19.8",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
+    "angular-bootstrap-md": "^12.2.0",
     "bootstrap": "^4.6.1",
     "firebase": "^9.6.6",
     "react-bootstrap": "^2.1.2",

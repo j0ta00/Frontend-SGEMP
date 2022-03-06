@@ -1,21 +1,52 @@
-<table class="table">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">FirstName</th>
-        <th scope="col">LastName</th>
-        <th scope="col">BirthDate</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let Pedido of listadoPedidos">
-        <td>{{Pedido.id}}</td>
-
-        <td>{{Pedido.name}}</td>
-        
-        <td>{{Pedido.lastName}}</td>
-        
-        <td>{{Pedido.birthDate | date: "dd/MM/YYYY"}}</td>
-      </tr>
-    </tbody>
-</table>
+<body>
+  <div id="filter">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($any($event).target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <mdb-card id="card">
+    <table mat-table [dataSource]="dataSource" matSort id="table">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaPedido">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Pedido </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaPedido | date}} </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaEntrega">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Entrega </th>
+        <td mat-cell *matCellDef="let element"> {{element.fechaRecepcion| date}} </td>
+      </ng-container>
+      <ng-container matColumnDef="nombreProveedor">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Proveedor </th>
+        <td mat-cell *matCellDef="let element"> {{element.nombreProveedor}} </td>
+      </ng-container>
+      <ng-container matColumnDef="importeTotal">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe Total </th>
+        <td mat-cell *matCellDef="let element"> {{element.importeTotal}} €</td>
+      </ng-container>
+      <ng-container matColumnDef="details">
+        <th mat-header-cell *matHeaderCellDef> Detalles </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" (click)="redirectToDetails(element.id)">
+              <mat-icon class="mat-18">reorder</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Borrar </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">
+                  <mat-icon class="mat-18">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [hidePageSize]="true" [pageSize]="5">
+    </mat-paginator>
+    <button mat-raised-button id="add" (click)="redirectToCreate()">Nuevo Pedido</button>
+  </mdb-card>
+</body>

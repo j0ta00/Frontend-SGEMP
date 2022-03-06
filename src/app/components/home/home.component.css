@@ -1,0 +1,39 @@
+body {
+    background-color:antiquewhite;
+}
+
+table {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-width: 500px;
+}
+
+#table tr:hover {
+    background: azure;
+    }
+
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+    background-color: black;
+    color: white;
+}
+
+#card {
+    margin: 2cm;
+    padding: 1cm;
+    background-color: aliceblue;
+}
+
+#filter {
+    margin-left: 40%;
+}
+
+#add{
+    height: 1cm;
+    width: 5cm;
+    margin-top: 1cm;
+    background-color: cadetblue;
+    color: white;
+}

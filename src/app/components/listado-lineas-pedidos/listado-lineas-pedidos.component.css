@@ -1,39 +1,68 @@
 
+
 table{
-    width: 50%;
+    width: 100%;
     border-collapse: collapse; 
 }
-select{
-    margin-top: 12px;
+
+th.mat-header-cell {
+    text-align: left;
+    max-width: 300px;
+    background-color: black;
+    color: white;
+}
+#tablaTotal{
+    text-align: right;
+    font-size: 20px;
+    width: 190%;
+  border-collapse: collapse;
 }
 
-#btnAnhiadir{
-    margin-top:10px;
-    padding-bottom: 10px;
-    background-color: transparent;
-    border: 3px solid #888;
-    border-radius: 50px;
-}
-#btnAnhiadir:hover{
-    margin-top:10px;
-    padding-bottom: 10px;
-    background-color: grey;
-    border: 3px solid #888;
-    border-radius: 50px;
+#tdBaseImponible{
+    text-align: left;
+   
 }
 
-#btnBorrado{
-   border-radius: 10px;
-    background-color: transparent;
-    border: 0px;
-}
-#btnBorrado:hover{
-    background-color: grey;
-    border: 0px;
+#tdIva{
+    text-align: left;
+
 }
 
-tbody,td,th 
-{
-    text-align: center; 
-    vertical-align: middle;
+#tdTotal{
+    text-align: left;
+    
 }
+
+
+#tablaAnhiadirPedido{
+    border-spacing: 8px;
+    border-collapse: separate;
+    max-width: 82%;
+    
+}
+
+#idPedidoAnhiadido{
+padding-left: 19px ;
+}
+
+mdb-card{
+padding:2% ;
+margin-top: 2%;
+}
+
+td{
+width: 120px;
+}
+
+#buttonAdd{
+    margin-top: 2%;
+    color: white;
+    background:#3f51b5 ;
+}
+
+#buttonAdd:hover{
+    margin-top: 2%;
+    color: white;
+    background:#727dbb;
+}
+

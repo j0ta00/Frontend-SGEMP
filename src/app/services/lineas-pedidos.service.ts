@@ -19,7 +19,4 @@ export class LineasPedidosService {
     return this.http.get<LineaPedidos[]>(this.urlWebApi+"LineasPedido/"+idPedido)
   }
 
-  listadoProductosPorProveedor(idProveedor:Number): Observable<Producto[]>{
-      return this.http.get<Producto[]>(this.urlWebApi+"Productos/Proveedores/"+idProveedor)
-  }
 }

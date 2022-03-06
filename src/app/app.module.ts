@@ -20,8 +20,23 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ListadoLineasPedidosComponent } from './components/listado-lineas-pedidos/listado-lineas-pedidos.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { Routes } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MaterialModule } from 'src/app/modules/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatPaginatorModule } from '@angular/material/paginator';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MenuComponent } from './components/menu/menu.component';
 
 
+const routes: Routes = [
+  { path: 'home', component: HomeComponent},
+  { path: 'owner', loadChildren: () => import('./modules/owner.module').then(m => m.OwnerRoutingModule) }, 
+  { path: '', redirectTo: '/home', pathMatch: 'full' }
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +44,8 @@ import { ListadoLineasPedidosComponent } from './components/listado-lineas-pedid
     LoginComponent,
     HomeComponent,
     PageNotFoundComponent,
-    ListadoLineasPedidosComponent
+    ListadoLineasPedidosComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +57,14 @@ import { ListadoLineasPedidosComponent } from './components/listado-lineas-pedid
     NgbModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    ReactiveFormsModule
+    MatIconModule,
+    ReactiveFormsModule,
+    MatSortModule,
+    MatTableModule,
+    MaterialModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule,
+    MDBBootstrapModule.forRoot()
   ],
   providers: [LoginComponent, AuthService,  AuthGuard],
   bootstrap: [AppComponent]

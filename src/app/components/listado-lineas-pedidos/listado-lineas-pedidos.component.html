@@ -1,50 +1,126 @@
-<button (click)="[cambiarVisibilidad()]">Hello</button>
-<table  class="table"  >
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">IdPedido</th>
-        <th scope="col">IdProducto</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Precio Unitario</th>
-        <th scope="col">Subtotal</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let linea of listadoLineasPedidos;let i = index">
-        <th scope="row">{{linea.idPedido}}</th>
-        <td>{{linea.idProducto}}</td>
-        <td [hidden]="visibilityTd">{{linea.cantidad}}</td>
-        <td [hidden]="visibilityInputs"><input value={{linea.cantidad}} class="form-control mdb-autocomplete"></td>
-        <td>{{linea.precioUnitario}}</td>
-        <td>{{linea.subTotal}}</td>
-        <button id="btnBorrado" (click)="borrarFila(i)"><img src="assets/bin_image.png" width="35px" height="35px"></button>
-      </tr>
-    </tbody>
-      <tr *ngFor="let linea of listadoLineasPedidosAnhiadidos;let i=index">
-        <th scope="row">{{linea.idPedido}}</th>
-          <select class="form-control mdb-autocomplete">
-            <option *ngFor="let producto of listadoProductos;let i=index" (change)="cambiarProducto(producto.id)">{{producto.nombre}}</option>
-          </select>
-        <td><input value={{linea.cantidad}} class="form-control mdb-autocomplete"></td>
-        <td>{{linea.precioUnitario}}</td>
-        <td>{{linea.subTotal}}</td>
-      </tr>
-      <button id="btnAnhiadir"  (click)="anhiadirPedido()" class="btn btn-primary" ><img src="assets/icono_anhiadir.png" width="20px" height="20px"></button>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
-    </table>
-  
+<div style="margin-top: 20px; width: auto;" [hidden]="!spinnerVisibility">
+  <div class="row justify-content-left">
+    <div class="col-1">
+      <button id="btnCreate" type="Button" class="btn btn-outline-primary" *ngIf="!creandoPedido" (click)="crearPedido()">Crear</button>
+    </div>
+    <div class="col-1">
+      <button id="btnSave" type="Button" class="btn btn-primary" (click)="guardarCambios()">Guardar</button>
+    </div>
+    <div class="col-1">
+      <button id="btnDiscard" type="Button" class="btn btn-outline-danger" (click)="descartarCambios()">Descartar</button>
+    </div>
+  </div>
+</div>
+<div style="margin-top: 50px; margin-left: 20px;">
+  <div class="row">
+    <div class="col-sm-3">
+      <label for="inputProveedor" class="active">Proveedor</label>
+      <select id="inputProveedor" [(ngModel)]="pedidoSeleccionado.idProveedor" class="form-control mdb-autocomplete" (change)="cambiarDeProveedor(pedidoSeleccionado.idProveedor)">
+        <option *ngFor="let proveedor of listadoProveedores" [ngValue]="proveedor.id">{{proveedor.nombreContacto}}</option>
+      </select>
+    </div>
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-3">
+      <label for="fechaPedido" class="active">Fecha de pedido</label>
+      <input type="date" [ngModel] ="pedidoSeleccionado.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaPedido = $event" class="form-control mdb-autocomplete" id="fechaPedido">
+    </div>
+  </div>
+  <div class="row" style="margin-top: 10px;">
+    <div class="col-sm-3">
+      <label for="plazo" class="active">Fecha de entrega</label>
+      <input type="date" [ngModel] ="pedidoSeleccionado.fechaRecepcion | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaRecepcion = $event" class="form-control mdb-autocomplete" id="plazo">
+    </div>
+  </div>
+</div>
+<div class="spinner-border" style="width: 50px; height: 50px;" [hidden]="spinnerVisibility" role="status">
+  <span class="sr-only">Loading...</span>
+</div> 
 
+<mdb-card id="card">
+  <table mat-table [dataSource]="dataSource" matSort id="table">
+    <tbody>
+    <ng-container matColumnDef="idPedido">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id Pedido </th>
+      <td mat-cell *matCellDef="let element"> {{element.idPedido}} </td>
+    </ng-container>
+    <ng-container matColumnDef="NombreProducto">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Producto</th>
+      <td mat-cell *matCellDef="let element"> {{element.idProducto}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Cantidad">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Cantidad </th>
+      <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+    </ng-container>
+    <ng-container matColumnDef="PrecioUnitario">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio Unitario </th>
+      <td mat-cell *matCellDef="let element"> {{element.precioUnitario}} €</td>
+    </ng-container>
+    <ng-container matColumnDef="Subtotal">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Importe Total </th>
+      <td mat-cell *matCellDef="let element"> {{element.subTotal}} €</td>
+    </ng-container>
+      <ng-container matColumnDef="Borrar">
+          <th mat-header-cell *matHeaderCellDef> Borrar </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="warn" (click)="open(mymodal,element.id)">
+              <mat-icon class="mat-18">delete</mat-icon>
+          </button>  
+          </td>         
+        </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </tbody>
+  <tbody>
+  </tbody> 
+  </table>
+  <table id="tablaAnhiadirPedido">
+  <tr  *ngFor="let linea of listadoLineasPedidosAnhiadidos;let i=index">
+    <td  id="idPedidoAnhiadido"  scope="row" class="col-lg-4"  style="width:18%">{{linea.idPedido}}</td>
+    <td class="col-lg-4"  style="width:20%">
+      <select id="selectAnhiadirProducto" class="form-control mdb-autocomplete" (change)="cambiarProducto($event.target,i)">
+        <option *ngFor="let producto of listadoProductos;" [value]="producto.id">{{producto.nombre}}</option>
+      </select>
+    </td>
+    <td class="col-lg-4" ><input type="number" id="selectAnhiadirProducto" #textInput value={{linea.cantidad}} class="form-control mdb-autocomplete"  (input)="cambiarCantidad(textInput.value,i)"></td>
+    <td class="col-lg-4"  style="width:20%">{{linea.precioUnitario}}</td>
+    <td class="col-lg-4"  style="width:20%">{{linea.subTotal}}</td>
+  </tr>
+  <button id="buttonAdd" mat-icon-button color="primary" (click)="anhiadirPedido()">
+    <mat-icon class="mat-18">add</mat-icon>
+</button>
+</table>
+<table id="tablaTotal">
+  <tr>
+    <td >Base Imponible:  </td>
+    <td id="tdBaseImponible">{{baseImponible}}</td>
+  </tr>
+  <tr>
+    <td>IVA 21%:  </td>
+    <td id="tdIva">{{iva}}</td>
+  </tr>
+  <tr>
+    <th >Total:  </th>
+    <td id="tdTotal">{{total}}</td>
+  </tr>
+</table>
+  <mat-paginator [hidePageSize]="true" [pageSize]="1">
+  </mat-paginator>
   
- 
+</mdb-card>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="delete-modal">Eliminar elemento</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    ¿Desea borrar el producto?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Delete click')">Borrar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Cancelar</button>
+  </div>
+</ng-template>

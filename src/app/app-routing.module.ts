@@ -6,6 +6,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AuthGuard } from './guards/auth.guard';
 import { LoginGuard } from './guards/login.guard';
 import {ListadoLineasPedidosComponent} from './components/listado-lineas-pedidos/listado-lineas-pedidos.component';
+import { PedidosResolver } from './resolvers/pedidos.resolver';
+import { MenuComponent } from './components/menu/menu.component';
 
 const routes: Routes = [
 
@@ -15,8 +17,11 @@ const routes: Routes = [
   },
 
   {
-    path: "detallesPedidos",
-    component: ListadoLineasPedidosComponent
+    path: "detallesPedidos/:id",
+    component: ListadoLineasPedidosComponent,
+    resolve:{
+      pedidos:PedidosResolver
+    }
   },
 
   {
@@ -29,6 +34,11 @@ const routes: Routes = [
   {
     path: "home",
     component: HomeComponent,
+
+  },
+  {
+    path: "menu",
+    component: MenuComponent,
     canActivate: [AuthGuard]
 
   },
