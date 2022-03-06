@@ -21,6 +21,6 @@ export class PedidosService {
     return pedidoPorId;
   }
   insertPedido(idUsuario: String, idProveedor:Number): void {
-    this.http.post<any>(this.urlWebApi, {idUsuario: idUsuario, idProveedor:idProveedor});
+    this.http.post<any>("https://apierpkiosko.azurewebsites.net/api/Pedidos/Usuario/"+idUsuario+"/Proveedor/"+idProveedor, {idUsuario:idUsuario, idProveedor:idProveedor});
   }
 }
