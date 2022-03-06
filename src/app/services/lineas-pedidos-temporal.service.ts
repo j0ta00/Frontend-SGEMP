@@ -11,9 +11,10 @@ export class LineasPedidosTemporalService {
 
   constructor(private http: HttpClient) {  }
   insertLineaPedidoTMP(lineaPedidoTmp:LineaPedidos){
-    return this.http.post(this.rlWebApi, lineaPedidoTmp);
+    var dataid;
+    return this.http.post<LineaPedidos>(this.rlWebApi, lineaPedidoTmp).subscribe(data=>{dataid=data.idPedido});
   }
   updateLineaPedidoTMP(lineaPedido:LineaPedidos){
-    return this.http.put(this.rlWebApi, lineaPedido);
+    return this.http.put<LineaPedidos>(this.rlWebApi, lineaPedido);
   }
 }
