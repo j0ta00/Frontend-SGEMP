@@ -10,11 +10,10 @@ export class LineasPedidosTemporalService {
   rlWebApi = "https://apierpkiosko.azurewebsites.net/api/LineaPedidoTMP";
 
   constructor(private http: HttpClient) {  }
-  insertLineaPedidoTMP(lineaPedidoTmp:LineaPedidos){
-    var dataid;
-    return this.http.post<LineaPedidos>(this.rlWebApi, lineaPedidoTmp).subscribe(data=>{dataid=data.idPedido});
+  insertLineaPedidoTMP(lineaPedidoTmp:any){
+    return this.http.post<any>(this.rlWebApi, lineaPedidoTmp);
   }
-  updateLineaPedidoTMP(lineaPedido:LineaPedidos){
-    return this.http.put<LineaPedidos>(this.rlWebApi, lineaPedido);
+  updateLineaPedidoTMP(lineaPedido:any){
+    return this.http.put<any>(this.rlWebApi, lineaPedido);
   }
 }

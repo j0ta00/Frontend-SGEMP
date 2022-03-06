@@ -1,6 +1,6 @@
 export interface LineaPedidos{
-    idPedido:String;
-    idProducto:String;
+    idPedido:Number;
+    idProducto:Number;
     cantidad:Number;
     precioUnitario:Number;
     subTotal:Number;

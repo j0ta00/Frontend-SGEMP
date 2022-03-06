@@ -46,7 +46,7 @@ export class ListadoLineasPedidosComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   defaultRecords: any = 3;
 
-  constructor(private ProductosService: ProductosService, private authServe:AuthService ,private lineasPedidosService: LineasPedidosService, private lineasPedidosTmpService: LineasPedidosTemporalService, private modalService: NgbModal, private resolver: PedidosResolver, private pedidosService: PedidosService, private proveedoresService: ProveedorService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(private ProductosService: ProductosService, private authServe: AuthService, private lineasPedidosService: LineasPedidosService, private lineasPedidosTmpService: LineasPedidosTemporalService, private modalService: NgbModal, private resolver: PedidosResolver, private pedidosService: PedidosService, private proveedoresService: ProveedorService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.anhiadiendoPedido = false
     this.visibilityTd = false;
     this.baseImponible = 0;
@@ -64,8 +64,8 @@ export class ListadoLineasPedidosComponent implements OnInit {
     this.nuevaLineaPedido = {
       cantidad: 0,
       subTotal: 0,
-      idProducto: '1',
-      idPedido: '1',
+      idProducto: 1,
+      idPedido: 1,
       precioUnitario: 0
     };
     this.listadoLineasPedidosAnhiadidos.push(this.nuevaLineaPedido);
@@ -88,6 +88,9 @@ export class ListadoLineasPedidosComponent implements OnInit {
     if (this.productoSeleccionado !== undefined) {
       this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].precioUnitario = this.productoSeleccionado.precioUnitario.valueOf()
       this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].subTotal = this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad.valueOf() * this.productoSeleccionado.precioUnitario.valueOf()
+      this.baseImponible = this.calcularBaseImponible();
+      this.iva = this.calcularIva();
+      this.total = this.calcularTotal();
     }
   }
 
@@ -100,16 +103,19 @@ export class ListadoLineasPedidosComponent implements OnInit {
     } else {
       this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad = 0
     }
+    this.baseImponible = this.calcularBaseImponible();
+    this.iva = this.calcularIva();
+    this.total = this.calcularTotal();
   }
 
   guardarCambios(): void {
-    var userID="unchardeveintiochoaaaaaaaaaa";
+    var userID = "1";
     // this.authServe.getUserLogged().subscribe(data=>{userId=data?.getIdToken})
-    this.listadoLineasPedidosAnhiadidos.forEach(item => { this.lineasPedidosTmpService.insertLineaPedidoTMP(item); });
+    this.listadoLineasPedidosAnhiadidos.forEach(item => { var aux = { idProveedor: this.pedidoSeleccionado.idProveedor, idUsuario: userID, idProducto: item.idProducto, cantidad: item.cantidad, precioUnitario: item.precioUnitario }; this.lineasPedidosTmpService.insertLineaPedidoTMP(aux); });
     if (this.creandoPedido) {
       this.pedidosService.insertPedido(userID, this.pedidoSeleccionado.idProveedor);
     } else {
-      this.listadoLineasPedidosAnhiadidos.forEach(item => { this.lineasPedidosTmpService.updateLineaPedidoTMP(item); });
+      this.listadoLineasPedidosAnhiadidos.forEach(item => { var aux = { idProveedor: this.pedidoSeleccionado.idProveedor, idUsuario: userID, idProducto: item.idProducto, cantidad: item.cantidad, precioUnitario: item.precioUnitario }; this.lineasPedidosTmpService.updateLineaPedidoTMP(aux); });
     }
   }
   descartarCambios(): void {
@@ -146,6 +152,9 @@ export class ListadoLineasPedidosComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.cambiarDeProveedor(this.listadoProveedores[0].id);
+    this.baseImponible = this.calcularBaseImponible();
+    this.iva = this.calcularIva();
+    this.total = this.calcularTotal();
   }
 
   public cambiarDeProveedor(idProveedor: Number): void {
@@ -171,8 +180,11 @@ export class ListadoLineasPedidosComponent implements OnInit {
   }
   calcularBaseImponible(): Number {
     var base = 0;
-    for (let linea of this.listadoLineasPedidos) {
+    for (let linea of this.dataSource.data) {
       base += Number(linea.subTotal);
+    }
+    if (this.listadoLineasPedidosAnhiadidos != null && this.listadoLineasPedidosAnhiadidos) {
+      for (let linea of this.listadoLineasPedidosAnhiadidos) base += Number(linea.subTotal);
     }
     return base;
   }

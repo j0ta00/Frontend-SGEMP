@@ -21,6 +21,6 @@ export class PedidosService {
     return pedidoPorId;
   }
   insertPedido(idUsuario: String, idProveedor:Number): void {
-    this.http.post<Pedido>(this.urlWebApi, {idUsuario: idUsuario, idProveedor:idProveedor});
+    this.http.post<any>(this.urlWebApi, {idUsuario: idUsuario, idProveedor:idProveedor});
   }
 }

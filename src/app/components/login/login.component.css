@@ -1,13 +1,15 @@
 .container {
-
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
-
 }
 
+body{
+    background-color:rgb(189, 189, 189);
+
+}
 #carta {
 
     width: 40%;
