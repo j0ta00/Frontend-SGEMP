@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Pedido } from 'src/app/interfaces/pedido';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -19,10 +21,17 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public dataSource = new MatTableDataSource<Pedido>();
 
 
-  constructor(private personaservice: PedidosService, private activatedRoute: ActivatedRoute, private router: Router) { 
+
+  constructor(private personaservice: PedidosService, private activatedRoute: ActivatedRoute, private router: Router, private dialog:MatDialog) { 
   }
+
+
   ngOnInit(): void {
-    this.personaservice.listadoPedidos().subscribe(data => { this.dataSource.data = data as Pedido[]})   
+    try{
+      this.personaservice.listadoPedidos().subscribe(data => { this.dataSource.data = data as Pedido[]})
+    }catch{
+      this.router.navigate(['/error']).then(() => {window.location.reload();});
+    }   
   }
   
   ngAfterViewInit(): void {
@@ -34,11 +43,32 @@ export class HomeComponent implements OnInit, AfterViewInit {
     window.location.reload();
   });}
 
-  public redirectToDelete = (id: string) => {}
+  public redirectToDelete(idPedido: Number):void{
+    
+      const dialogRef = this.dialog.open(DialogBoxComponent);
+  
+      dialogRef.afterClosed().subscribe(data => {
+        if (data) {
+          try {
+            this.personaservice.borrarPedido(idPedido).subscribe(()=>console.log("Pedido borrado"));      
+          } catch (error) {
+            this.router.navigate(['/error']).then(() => {window.location.reload();});
+          }
+        }      
+      } 
+      ); 
+  }
+
+
+  
+
+
   public redirectToCreate = () => {this.router.navigate(['/detallesPedidos/0']).then(() => {
     window.location.reload();
   });}
   
+
+
   public doFilter = (value: string) => {
       this.dataSource.filter = value.trim().toLocaleLowerCase();
   }

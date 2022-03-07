@@ -30,6 +30,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
+import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -47,7 +49,8 @@ const routes: Routes = [
     HomeComponent,
     PageNotFoundComponent,
     ListadoLineasPedidosComponent,
-    MenuComponent
+    MenuComponent,
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ const routes: Routes = [
     MaterialModule,
     MatPaginatorModule,
     BrowserAnimationsModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    MatDialogModule
   ],
   providers: [LoginComponent, AuthService,  AuthGuard],
   bootstrap: [AppComponent]

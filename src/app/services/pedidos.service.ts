@@ -8,6 +8,9 @@ import { Pedido } from '../interfaces/pedido';
   providedIn: 'root'
 })
 export class PedidosService {
+  borrarPedido(id: Number):Observable<number>{
+    return this.http.delete<number>("https://apierpkiosko.azurewebsites.net/api/Pedidos/"+id);
+  }
 
   urlWebApi = "https://apierpkiosko.azurewebsites.net/api/Pedidos";
 
