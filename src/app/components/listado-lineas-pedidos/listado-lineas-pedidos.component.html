@@ -4,7 +4,7 @@
       <button id="btnCreate" mat-flat-button color="primary" *ngIf="!creandoPedido" (click)="crearPedido()">Crear <mat-icon>add</mat-icon></button>
     </div>
     <div class="col-1">
-      <button id="btnSave" mat-flat-button color="accent" (click)="guardarCambios()">Guardar <mat-icon>save</mat-icon></button>
+      <button id="btnSave" mat-flat-button color="accent" (click)="insertarPedido()">Grabar Factura <mat-icon>save</mat-icon></button>
     </div>
     <div class="col-1">
       <button id="btnEdit" mat-flat-button color="accent" (click)="cambiarVisibilidad()">Editar <mat-icon>edit</mat-icon></button>
@@ -18,21 +18,21 @@
   <div class="row">
     <div class="col-sm-3">
       <label for="inputProveedor" class="active">Proveedor</label>
-      <select id="inputProveedor" [(ngModel)]="pedidoSeleccionado.idProveedor" class="form-control mdb-autocomplete" (change)="cambiarDeProveedor(pedidoSeleccionado.idProveedor)">
+      <select id="inputProveedor" [disabled]="!creandoPedido" [(ngModel)]="pedidoSeleccionado.idProveedor" class="form-control mdb-autocomplete" (change)="cambiarDeProveedor(pedidoSeleccionado.idProveedor)">
         <option *ngFor="let proveedor of listadoProveedores" [ngValue]="proveedor.id">{{proveedor.nombreContacto}}</option>
       </select>
     </div>
     <div class="col-sm-2">
     </div>
     <div class="col-sm-3">
-      <label for="fechaPedido" class="active">Fecha de pedido</label>
-      <input type="date" [ngModel] ="pedidoSeleccionado.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaPedido = $event" class="form-control mdb-autocomplete" id="fechaPedido">
+      <label for="fechaPedido" [hidden]="creandoPedido" class="active">Fecha de pedido</label>
+      <input type="date" [hidden]="creandoPedido" readonly="true" [ngModel] ="pedidoSeleccionado.fechaPedido | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaPedido = $event" class="form-control mdb-autocomplete" id="fechaPedido">
     </div>
   </div>
   <div class="row" style="margin-top: 10px;">
     <div class="col-sm-3">
-      <label for="plazo" class="active">Fecha de entrega</label>
-      <input type="date" [ngModel] ="pedidoSeleccionado.fechaRecepcion | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaRecepcion = $event" class="form-control mdb-autocomplete" id="plazo">
+      <label for="plazo" [hidden]="creandoPedido" class="active">Fecha de entrega</label>
+      <input type="date" [hidden]="creandoPedido" readonly="true" [ngModel] ="pedidoSeleccionado.fechaRecepcion | date:'yyyy-MM-dd'" (ngModelChange)="pedidoSeleccionado.fechaRecepcion = $event" class="form-control mdb-autocomplete" id="plazo">
     </div>
   </div>
 </div>
@@ -112,9 +112,11 @@
     <td id="tdTotal">{{total}}</td>
   </tr>
 </table>
-  <mat-paginator [hidePageSize]="true" [pageSize]="1">
+  <mat-paginator [hidePageSize]="true" [pageSize]="3">
   </mat-paginator>
-  
+  <div class="col-1">
+    <button id="btnColumn" mat-flat-button color="accent" (click)="guardarCambios()">Guardar Cambios <mat-icon>save</mat-icon></button>
+  </div>
 </mdb-card>
 
 <ng-template #mymodal let-modal>
