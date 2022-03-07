@@ -109,7 +109,7 @@ export class ListadoLineasPedidosComponent implements OnInit {
   }
 
   guardarCambios(): void {
-    var userID = "1";
+    var userID = "uwu";
     // this.authServe.getUserLogged().subscribe(data=>{userId=data?.getIdToken})
     this.listadoLineasPedidosAnhiadidos.forEach(item => { var aux = { idProveedor: this.pedidoSeleccionado.idProveedor, idUsuario: userID, idProducto: item.idProducto, cantidad: item.cantidad, precioUnitario: item.precioUnitario }; this.lineasPedidosTmpService.insertLineaPedidoTMP(aux); });
     if (this.creandoPedido) {
@@ -117,8 +117,10 @@ export class ListadoLineasPedidosComponent implements OnInit {
     } else {
       this.listadoLineasPedidosAnhiadidos.forEach(item => { var aux = { idProveedor: this.pedidoSeleccionado.idProveedor, idUsuario: userID, idProducto: item.idProducto, cantidad: item.cantidad, precioUnitario: item.precioUnitario }; this.lineasPedidosTmpService.updateLineaPedidoTMP(aux); });
     }
+    
   }
   descartarCambios(): void {
+    var userID = "uwu";
     this.router.navigateByUrl("/home");
   }
   crearPedido(): void {
