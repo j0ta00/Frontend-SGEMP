@@ -86,6 +86,7 @@ export class ListadoLineasPedidosComponent implements OnInit {
     const element = option as HTMLOptionElement;
     this.productoSeleccionado = this.listadoProductos.find(producto => producto.id == option.value);
     if (this.productoSeleccionado !== undefined) {
+      this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].idProducto = this.productoSeleccionado.id;
       this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].precioUnitario = this.productoSeleccionado.precioUnitario.valueOf()
       this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].subTotal = this.listadoLineasPedidosAnhiadidos[indexListado.valueOf()].cantidad.valueOf() * this.productoSeleccionado.precioUnitario.valueOf()
       this.baseImponible = this.calcularBaseImponible();
@@ -109,18 +110,18 @@ export class ListadoLineasPedidosComponent implements OnInit {
   }
 
   guardarCambios(): void {
-    var userID = "uwu";
-    // this.authServe.getUserLogged().subscribe(data=>{userId=data?.getIdToken})
-    this.listadoLineasPedidosAnhiadidos.forEach(item => { var aux = { idProveedor: this.pedidoSeleccionado.idProveedor, idUsuario: userID, idProducto: item.idProducto, cantidad: item.cantidad, precioUnitario: item.precioUnitario }; this.lineasPedidosTmpService.insertLineaPedidoTMP(aux); });
-    if (this.creandoPedido) {
-      this.pedidosService.insertPedido(userID, this.pedidoSeleccionado.idProveedor);
-    } else {
-      this.listadoLineasPedidosAnhiadidos.forEach(item => { var aux = { idProveedor: this.pedidoSeleccionado.idProveedor, idUsuario: userID, idProducto: item.idProducto, cantidad: item.cantidad, precioUnitario: item.precioUnitario }; this.lineasPedidosTmpService.updateLineaPedidoTMP(aux); });
-    }
-    
+    var userID = "a";
+    this.listadoLineasPedidosAnhiadidos.forEach(item => {
+      var aux = { idProveedor: this.pedidoSeleccionado.idProveedor, idUsuario: userID, idProducto: item.idProducto, cantidad: item.cantidad, precioUnitario: item.precioUnitario };
+      this.lineasPedidosTmpService.insertLineaPedidoTMP(aux);
+    });
+    this.listadoLineasPedidosAnhiadidos.forEach(item => {
+      var aux = { idProveedor: this.pedidoSeleccionado.idProveedor, idUsuario: userID, idProducto: item.idProducto, cantidad: item.cantidad, precioUnitario: item.precioUnitario };
+      this.lineasPedidosTmpService.insertLineaPedidoTMP(aux);
+    });
   }
   descartarCambios(): void {
-    var userID = "uwu";
+
     this.router.navigateByUrl("/home");
   }
   crearPedido(): void {
@@ -130,7 +131,11 @@ export class ListadoLineasPedidosComponent implements OnInit {
   }
 
   insertarPedido(): void {
-    this.pedidoSeleccionado.idProveedor;
+    var userID = "a";
+    this.pedidosService.insertPedido(userID, this.pedidoSeleccionado.idProveedor);
+    this.router.navigateByUrl("/home").then(() => {
+      window.location.reload();
+    });;
   }
 
   get(): any {
