@@ -7,7 +7,7 @@ import { LineaPedidos } from '../interfaces/linea-pedidos';
 })
 export class LineasPedidosTemporalService {
 
-  rlWebApi = "http://localhost:22486//api/LineaPedidoTMP";
+  rlWebApi = "https://apierpkiosko.azurewebsites.net/api/LineaPedidoTMP";
 
   constructor(private http: HttpClient) {  }
   insertLineaPedidoTMP(lineaPedidoTmp:any){
