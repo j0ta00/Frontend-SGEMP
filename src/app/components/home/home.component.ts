@@ -39,10 +39,31 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
+
+  /**
+    <summary>
+       <cabecera>public redirectToDetails</cabecera>
+       <descricion>Este método navega hacia la vista de detalles del pedido según el id del pedido recibido</descricion>
+       <precondicion>El id ha de ser válido</precondicion>
+       <postcondicion>Redirecciona a la vista de detalles</postcondicion>
+    </summary>
+    @param id
+   */
   public redirectToDetails = (id: string) => {this.router.navigate(['/detallesPedidos/'+id]).then(() => {
     window.location.reload();
   });}
 
+
+
+  /**
+    <summary>
+       <cabecera>public redirectToDetails</cabecera>
+       <descricion>Este método muestra una alerta para borrar el pedido o no</descricion>
+       <precondicion>El id ha de ser válido</precondicion>
+       <postcondicion>Se borra o no el pedido según la elección del usuario</postcondicion>
+    </summary>
+    @param idPedido 
+   */
   public redirectToDelete(idPedido: Number):void{
     
       const dialogRef = this.dialog.open(DialogBoxComponent);
@@ -62,13 +83,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   
 
-
+  /**
+    <summary>
+       <cabecera>public redirectToCreate = ()</cabecera>
+       <descricion>Este método navega hacia la vista de creae pedido</descricion>
+       <precondicion>Ninguna</precondicion>
+       <postcondicion>Navega haacia la vista crear pedido</postcondicion>
+    </summary>
+   */
   public redirectToCreate = () => {this.router.navigate(['/detallesPedidos/0']).then(() => {
     window.location.reload();
   });}
   
 
 
+  /**
+    <summary>
+       <cabecera>public doFilter = (value: string)</cabecera>
+       <descricion>Este método muestra filtra por los atributos de los elementos del DataSource</descricion>
+       <precondicion>Ninguna</precondicion>
+       <postcondicion>Se filtran los pedidos según lo que se haya buscado.</postcondicion>
+    </summary>
+    @param value 
+   */
   public doFilter = (value: string) => {
       this.dataSource.filter = value.trim().toLocaleLowerCase();
   }

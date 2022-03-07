@@ -32,6 +32,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuComponent } from './components/menu/menu.component';
 import { DialogBoxComponent } from './components/dialog-box/dialog-box.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ErrorComponent } from './components/error/error.component';
 
 
 
@@ -50,7 +51,8 @@ const routes: Routes = [
     PageNotFoundComponent,
     ListadoLineasPedidosComponent,
     MenuComponent,
-    DialogBoxComponent
+    DialogBoxComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

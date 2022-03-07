@@ -8,6 +8,7 @@ import { LoginGuard } from './guards/login.guard';
 import {ListadoLineasPedidosComponent} from './components/listado-lineas-pedidos/listado-lineas-pedidos.component';
 import { PedidosResolver } from './resolvers/pedidos.resolver';
 import { MenuComponent } from './components/menu/menu.component';
+import { ErrorComponent } from './components/error/error.component';
 
 const routes: Routes = [
 
@@ -47,6 +48,11 @@ const routes: Routes = [
   {
     path: "**",
     component: PageNotFoundComponent
+  },
+
+  {
+    path: "error",
+    component: ErrorComponent
   }
 
 ];
